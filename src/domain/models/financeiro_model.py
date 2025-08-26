@@ -1,0 +1,11 @@
+from datetime import date
+
+class Financeiro:
+    def __init__(self, id: int, paciente_id: int, convenio_id: int, valor: float, data_emisao: date, data_vencimento: date, status_pagamento: str):
+        self.id = id
+        self.paciente_id = paciente_id
+        self.convenio_id = convenio_id
+        self.valor = valor
+        self.data_emisao = data_emisao
+        self.data_vencimento = data_vencimento
+        self.status_pagamento = status_pagamento

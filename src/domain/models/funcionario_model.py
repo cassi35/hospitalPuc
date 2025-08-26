@@ -1,0 +1,12 @@
+from datetime import date
+
+class Funcionario:
+    def __init__(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: date):
+        self.id = id
+        self.nome = nome
+        self.cpf = cpf
+        self.cargo = cargo
+        self.setor_id = setor_id
+        self.telefone = telefone
+        self.email = email
+        self.data_contratacao = data_contratacao
