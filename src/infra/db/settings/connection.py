@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 import os 
 from dotenv import load_dotenv
 from sqlalchemy.orm import sessionmaker
-
 class BDConnectionHandler:
     def __init__(self):
         # Carrega as variáveis do arquivo .env
