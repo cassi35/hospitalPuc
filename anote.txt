@@ -1,0 +1,5 @@
+python3 -m venv venv
+ pip install pymysql  
+pip install pytest
+ pip install pytest-mock
+ pip install SQLAlchemy
