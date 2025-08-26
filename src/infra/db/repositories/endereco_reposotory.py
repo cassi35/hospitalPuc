@@ -22,7 +22,22 @@ class EnderecoRepository(EnderecoRepositoryInterface):
                 raise e 
     
     def select_endereco(self, id: int) -> EnderecoDomain:
-        pass
+        with BDConnectionHandler() as database:
+            try:
+               endereco = database.session. query(EnderecoEntity).filter_by(id=id).first()
+               if endereco:
+                    return EnderecoDomain(
+                        id=endereco.id,
+                        rua=endereco.rua,
+                        bairro=endereco.bairro,
+                        cidade=endereco.cidade,
+                        estado=endereco.estado,
+                        cep=endereco.cep
+                    )
+               return None
+            except Exception as e:
+                database.session.rollback()
+                raise e 
     def delete_endereco(self, id: int) -> None:
         pass
     def select_all_enderecos(self) -> List[EnderecoDomain]:pass
