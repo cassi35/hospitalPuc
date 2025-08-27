@@ -8,3 +8,5 @@ https://github.com/cassi35/clean_arquitecture_fastApi/blob/main/src/infra/db/rep
 https://github.com/cassi35/clean_arquitecture_fastApi/blob/main/src/infra/db/repositories/user_repository.py
 https://chatgpt.com/c/68add217-efc4-8329-a0e2-224c34a0f5d0
 https://docs.sqlalchemy.org/en/20/orm/quickstart.html
+
+atividades : https://chatgpt.com/c/68a750be-ebe0-832a-b6b5-89905da0f65b
