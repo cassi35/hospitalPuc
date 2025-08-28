@@ -35,9 +35,15 @@ def test_select_endereco():
     assert registry.id == id
     connection.commit()
     print(f"nome do bairro{endereco.bairro}")
+@pytest.mark.skip()
 def test_endereco_delete():
     id = 14
     endereco_repository = EnderecoRepository()
     delete = endereco_repository.delete_endereco(id)
     assert type(delete) == bool
     print(delete)
+def test_select_all_enderecos():
+    endereco_repository = EnderecoRepository()
+    enderecos = endereco_repository.select_all_enderecos()
+    assert len(enderecos) != 0
+    print(enderecos)

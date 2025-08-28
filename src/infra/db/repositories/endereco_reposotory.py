@@ -85,4 +85,21 @@ class EnderecoRepository(EnderecoRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    def select_all_enderecos(self) -> List[EnderecoDomain]:pass
+    def select_all_enderecos(cls) -> List[EnderecoDomain]:
+        with BDConnectionHandler() as database:
+            try:
+                enderecos = database.session.query(EnderecoEntity).all()
+                return [
+                    EnderecoDomain(
+                        id=e.id,
+                        rua=e.rua,
+                        bairro=e.bairro,
+                        cidade=e.cidade,
+                        estado=e.estado,
+                        cep=e.cep
+                    )
+                    for e in enderecos
+                ]
+            except Exception as e:
+                database.session.rollback()
+                raise e
