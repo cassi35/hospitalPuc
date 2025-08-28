@@ -12,7 +12,7 @@ class EnderecoRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def delete_endereco(self, id: int) -> None:
+    def delete_endereco(self, id: int) -> bool:
         pass
     @abstractmethod
     def select_all_enderecos(self) -> List[Endereco]:pass

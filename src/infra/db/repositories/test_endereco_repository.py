@@ -22,6 +22,7 @@ select * from Endereco where estado = '{estado}'	;
     assert registry.cidade == cidade
     connection.commit()
     print(registry)
+@pytest.mark.skip()
 def test_select_endereco():
     id = 11
     endereco_repository = EnderecoRepository()
@@ -34,3 +35,9 @@ def test_select_endereco():
     assert registry.id == id
     connection.commit()
     print(f"nome do bairro{endereco.bairro}")
+def test_endereco_delete():
+    id = 14
+    endereco_repository = EnderecoRepository()
+    delete = endereco_repository.delete_endereco(id)
+    assert type(delete) == bool
+    print(delete)

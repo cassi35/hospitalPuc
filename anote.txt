@@ -3,3 +3,7 @@ python3 -m venv venv
 pip install pytest
  pip install pytest-mock
  pip install SQLAlchemy
+ ---------------------------------
+ usecase do domain sao apenas contratos (interfaces)
+ regras de negocio o que deveria fazer nao implenta nada 
+ ja usecase na data sao as regras concretas definido no domain 
