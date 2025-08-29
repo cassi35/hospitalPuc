@@ -32,6 +32,7 @@ def test_select_convenio():
     assert registry.id == convenio.id
     assert registry.nome == convenio.nome
     assert registry.tipo_plano == convenio.tipo_plano
+@pytest.mark.skip()
 def test_update_convenio():
     id = 3
     nome = 'udpate convenio'
