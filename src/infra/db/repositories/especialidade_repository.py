@@ -7,16 +7,68 @@ class EspecialidadeRepository(EspecialidadeRepositoryInterface):
     
     @classmethod
     def create(self, nome: str, descricao: str) -> None:
-        pass
+        with BDConnectionHandler() as database:
+            try:
+                especialidade = EspecialidadeEntity(
+                    nome=nome,
+                    descricao=descricao
+                )
+                database.session.add(especialidade)
+                database.session.commit()
+            except Exception as e:
+                database.session.rollback()
+                raise e
     
     def update(self, id: int, nome: str, descricao: str) -> None:
-        pass
-    
+        with BDConnectionHandler() as database:
+            try:
+                especidade = database.session.query(EspecialidadeEntity).filter_by(id=id).first()
+                if especidade:
+                    especidade.nome = nome
+                    especidade.descricao = descricao
+                    database.session.commit()
+            except Exception as e:
+                database.session.rollback()
+                raise e
     def delete(self, id: int) -> bool:
-        pass
+        with BDConnectionHandler() as database:
+            try:
+                especialidade = database.session.query(EspecialidadeEntity).filter_by(id=id).first()
+                if especialidade:
+                    database.session.delete(especialidade)
+                    database.session.commit()
+                    return True
+                return False
+            except Exception as e:
+                database.session.rollback()
+                raise e
     
     def findById(self, id: int) -> EspecialidadeDomain:
-        pass
-    
+        with BDConnectionHandler() as database:
+            try:
+                especialidade = database.session.query(EspecialidadeEntity).filter_by(id=id).first()
+                if especialidade:
+                    return EspecialidadeDomain(
+                        id=especialidade.id,
+                        nome=especialidade.nome,
+                        descricao=especialidade.descricao
+                    )
+                return None
+            except Exception as e:
+                database.session.rollback()
+                raise e 
+
     def findAll(self) -> List[EspecialidadeDomain]:
-        pass
+        with BDConnectionHandler() as database:
+            try:
+                especialidades = database.session.query(EspecialidadeEntity).all()
+                return [
+                    EspecialidadeDomain(
+                        id=especidade.id,
+                        nome=especidade.nome,
+                        descricao=especidade.descricao
+                    ) for especidade in especialidades
+                ]
+            except Exception as e:
+                database.session.rollback()
+                raise e
