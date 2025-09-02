@@ -1,6 +1,8 @@
 from src.infra.db.settings.base import Base
 from sqlalchemy import Column,String,Integer,Date,Text,Enum,ForeignKey
 from sqlalchemy.orm import relationship
+from src.infra.db.entities.paciente import Paciente
+from src.infra.db.entities.medico import Medico
 class Exame(Base):
     __tablename__ = 'Exame'
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -11,5 +13,5 @@ class Exame(Base):
     resultado = Column(Text,nullable=True)
     status = Column(Enum('solicitado','em andamento','concluído'),nullable=True)
     
-    paciente = relationship('Paciente')
-    medico = relationship('Medico')
+    paciente = relationship(Paciente)
+    medico = relationship(Medico)

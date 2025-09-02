@@ -1,6 +1,7 @@
 from src.infra.db.settings.base import Base
 from sqlalchemy import Column,String,Integer,CHAR,Enum,Text,ForeignKey
 from sqlalchemy.orm import relationship
+from src.infra.db.entities.especialidade import Especialidade
 class Medico(Base):
     __tablename__ = 'Medico'
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -11,4 +12,4 @@ class Medico(Base):
     email = Column(Text,nullable=True)
     status = Column(Enum('ativo','nao ativo'),nullable=True)
     
-    especialidade = relationship('Especialidade')
+    especialidade = relationship(Especialidade)

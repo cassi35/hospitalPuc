@@ -8,7 +8,7 @@ class Paciente:
         self.data_nascimento = data_nascimento
         self.sexo = sexo
         self.telefone = telefone
-        self.contato_emergencia = contato_emergencia
         self.alergia = alergia
+        self.contato_emergencia = contato_emergencia
         self.endereco_id = endereco_id
         self.convenio_id = convenio_id

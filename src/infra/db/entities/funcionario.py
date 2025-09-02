@@ -1,6 +1,7 @@
 from src.infra.db.settings.base import Base
 from sqlalchemy import Column,String,Integer,CHAR,Text,Date,Enum,ForeignKey
 from sqlalchemy.orm import relationship
+from src.infra.db.entities.setor import Setor
 class Funcionario(Base):
     __tablename__ = 'funcionario'
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -12,4 +13,4 @@ class Funcionario(Base):
     email = Column(Text,nullable=True)
     data_contratacao = Column(Date,nullable=True)
     
-    setor = relationship('Setor')
+    setor = relationship(Setor)

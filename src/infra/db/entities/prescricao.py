@@ -1,6 +1,9 @@
 from src.infra.db.settings.base import Base
 from sqlalchemy import Column,Integer,Date,ForeignKey
 from sqlalchemy.orm import relationship
+from src.infra.db.entities.paciente import Paciente
+from src.infra.db.entities.medico import Medico
+from src.infra.db.entities.medicamento import Medicamento
 class Prescricao(Base):
     __tablename__ = 'prescricao'
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -11,6 +14,6 @@ class Prescricao(Base):
     dosagem = Column(Integer,nullable=True)
     frequencia = Column(Integer,nullable=True)
     
-    paciente = relationship('Paciente')
-    medico = relationship('Medico')
-    medicamento = relationship('Medicamento')
+    paciente = relationship(Paciente)
+    medico = relationship(Medico)
+    medicamento = relationship(Medicamento)

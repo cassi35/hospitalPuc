@@ -1,6 +1,9 @@
 from src.infra.db.settings.base import Base
 from sqlalchemy import Column,Integer,Date,String,Enum,ForeignKey
 from sqlalchemy.orm import relationship
+from src.infra.db.entities.paciente import Paciente
+from src.infra.db.entities.medico import Medico
+from src.infra.db.entities.especialidade import Especialidade
 class Consulta(Base):
     __tablename__ = 'Consulta'
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -11,6 +14,6 @@ class Consulta(Base):
     status = Column(Enum('ativo','nao ativo'),nullable=True)
     observacoes = Column(String(100),nullable=True)
     
-    paciente = relationship('Paciente')
-    medico = relationship('Medico')
-    especialidade = relationship('Especialidade')
+    paciente = relationship(Paciente)
+    medico = relationship(Medico)
+    especialidade = relationship(Especialidade)
