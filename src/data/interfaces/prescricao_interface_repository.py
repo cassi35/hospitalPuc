@@ -23,11 +23,3 @@ class PrescricaoRepositoryInterface(ABC):
     @abstractmethod
     def findAll(self) -> List[Prescricao]:
         pass
-    
-    @abstractmethod
-    def findByPaciente(self, paciente_id: int) -> List[Prescricao]:
-        pass
-    
-    @abstractmethod
-    def findByMedico(self, medico_id: int) -> List[Prescricao]:
-        pass
