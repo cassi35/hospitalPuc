@@ -9,23 +9,22 @@ connection = db_connection_handler.get_engine().connect()
 
 @pytest.mark.skip()
 def test_create_financeiro():
-    paciente_id = 1
+    paciente_id = 10
     valor = 1500.50
+    convenio_id = 2
     data_vencimento = '2025-10-15'
-    data_pagamento = '2025-10-10'
-    status = 'pago'
-    descricao = 'Consulta cardiologia'
-    
+    data_emisao = '2025-10-10'
+    status_pagamento = 'pago'
     financeiro_repository.create(
-        paciente_id=paciente_id,
-        valor=valor,
+        convenio_id=convenio_id,
+        data_emisao=data_emisao,
         data_vencimento=data_vencimento,
-        data_pagamento=data_pagamento,
-        status=status,
-        descricao=descricao
+        paciente_id=paciente_id,
+        status_pagamento=status_pagamento,
+        valor=valor
     )
     
-    sql = f'select * from financeiro where paciente_id = {paciente_id} and descricao = "{descricao}"'
+    sql = f'select * from financeiro where paciente_id = {paciente_id}'
     response = connection.execute(text(sql))
     registry = response.mappings().fetchone()
     assert registry['paciente_id'] == paciente_id
@@ -35,21 +34,20 @@ def test_create_financeiro():
 @pytest.mark.skip()
 def test_update_financeiro():
     id = 1
-    paciente_id = 1
-    valor = 2000.75
-    data_vencimento = '2025-11-15'
-    data_pagamento = '2025-11-10'
-    status = 'pago'
-    descricao = 'Exame atualizado'
-    
+    paciente_id = 10
+    valor = 1500.50
+    convenio_id = 2
+    data_vencimento = '2025-10-15'
+    data_emisao = '2025-10-10'
+    status_pagamento = 'Pendente'
     financeiro_repository.update(
         id=id,
-        paciente_id=paciente_id,
-        valor=valor,
+        convenio_id=convenio_id,
+        data_emisao=data_emisao,
         data_vencimento=data_vencimento,
-        data_pagamento=data_pagamento,
-        status=status,
-        descricao=descricao
+        paciente_id=paciente_id,
+        status_pagamento=status_pagamento,
+        valor=valor
     )
     
     sql = f'select * from financeiro where id = {id}'
@@ -64,7 +62,6 @@ def test_delete_financeiro():
     id = 1
     delete = financeiro_repository.delete(id=id)
     assert delete == True
-    
     sql = f'select * from financeiro where id = {id}'
     response = connection.execute(text(sql))
     registry = response.mappings().fetchone()
@@ -72,9 +69,9 @@ def test_delete_financeiro():
 
 @pytest.mark.skip()
 def test_find_by_id_financeiro():
-    id = 1
+    id = 2
     financeiro = financeiro_repository.findById(id=id)
-    assert financeiro is not None
+    assert financeiro != None
     assert financeiro.id == id
     print(financeiro)
 
@@ -85,20 +82,3 @@ def test_find_all_financeiros():
     for financeiro in financeiros:
         print(financeiro)
 
-@pytest.mark.skip()
-def test_find_by_paciente_financeiro():
-    paciente_id = 1
-    financeiros = financeiro_repository.findByPaciente(paciente_id=paciente_id)
-    assert isinstance(financeiros, list)
-    for financeiro in financeiros:
-        assert financeiro.paciente_id == paciente_id
-        print(financeiro)
-
-@pytest.mark.skip()
-def test_find_by_status_financeiro():
-    status = 'pago'
-    financeiros = financeiro_repository.findByStatus(status=status)
-    assert isinstance(financeiros, list)
-    for financeiro in financeiros:
-        assert financeiro.status == status
-        print(financeiro)
