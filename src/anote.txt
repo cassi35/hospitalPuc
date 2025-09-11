@@ -12,3 +12,6 @@ https://docs.sqlalchemy.org/en/20/orm/quickstart.html
 atividades : https://chatgpt.com/c/68a750be-ebe0-832a-b6b5-89905da0f65b
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 posso separar quando terminar no interface por dml e sql 
+
+------------------------------------
+solid: https://chatgpt.com/c/68c32580-531c-832e-8c84-9c1b99fdecf5
