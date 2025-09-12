@@ -19,4 +19,3 @@ solid: https://chatgpt.com/c/68c32580-531c-832e-8c84-9c1b99fdecf5
 ----------------------------
 comandos : file:///home/cassiano/linux/comandos.txt
 ------------
-alterando 
