@@ -59,26 +59,6 @@ class EnderecoRepositorySpy(EnderecoRepositoryInterface):
         self.delete_endereco_attributes = {'id': endereco_id}
         self.delete_endereco_call_count += 1
 
-    def select_all(self) -> List[Endereco]:
-        return [
-            Endereco(
-                id=1,
-                rua='Rua 1',
-                bairro='Bairro 1',
-                cidade='Cidade 1',
-                estado='Estado 1',
-                cep='11111111'
-            ),
-            Endereco(
-                id=2,
-                rua='Rua 2',
-                bairro='Bairro 2',
-                cidade='Cidade 2',
-                estado='Estado 2',
-                cep='22222222'
-            )
-        ]
-
     def find_by_cep(self, cep: str) -> Optional[Endereco]:
         return Endereco(
             id=99,
