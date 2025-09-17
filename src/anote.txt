@@ -13,9 +13,86 @@ atividades : https://chatgpt.com/c/68a750be-ebe0-832a-b6b5-89905da0f65b
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 posso separar quando terminar no interface por dml e sql 
 
+erro na arquitetura :https://chatgpt.com/c/68cae118-38f8-832e-b39c-687ac0273fc7
+Ele não sabe nada de regras de negócio, ele só sabe como ler/escrever 
+no banco ou qualquer outra fonte de dados (MySQL, PostgreSQL, API externa etc).
+
+O Use Case é onde a regra de negócio acontece.
+ Ele define o que deve ser feito, mas não como os dados são acessados.
 ------------------------------------
 solid: https://chatgpt.com/c/68c32580-531c-832e-8c84-9c1b99fdecf5
 
 ----------------------------
 comandos : file:///home/cassiano/linux/comandos.txt
 ------------
+metodos string:
+# Alinhamento e preenchimento
+"hi".center(10, "-")        # '--hi------' → centraliza a string com preenchimento.
+"42".zfill(5)               # '00042' → preenche com zeros à esquerda.
+"hi".ljust(10, ".")         # 'hi........' → alinha à esquerda preenchendo.
+"hi".rjust(10, ".")         # '........hi' → alinha à direita preenchendo.
+
+# Alteração de maiúsculas/minúsculas
+"hello".capitalize()        # 'Hello' → primeira letra maiúscula.
+"hello world".title()       # 'Hello World' → cada palavra começa em maiúscula.
+"HELLO".lower()             # 'hello' → tudo minúsculo.
+"hello".upper()             # 'HELLO' → tudo maiúsculo.
+"HELLO".casefold()          # 'hello' → minúsculo agressivo (para comparações).
+"HeLLo".swapcase()          # 'hEllO' → inverte maiúsculas/minúsculas.
+
+# Busca
+"banana".find("na")         # 2 → índice da 1ª ocorrência (ou -1 se não achar).
+"banana".rfind("na")        # 4 → índice da última ocorrência (ou -1).
+"banana".index("na")        # 2 → igual find, mas dá erro se não achar.
+"banana".rindex("na")       # 4 → última ocorrência, erro se não achar.
+"banana".count("na")        # 2 → quantas vezes aparece.
+"banana".startswith("ba")   # True → começa com "ba"?
+"banana".endswith("na")     # True → termina com "na"?
+
+# Substituição e formatação
+"hello {name}".format(name="Cassiano")   # 'hello Cassiano' → interpolação.
+"{:>10}".format("hi")      # '        hi' → formatação alinhada.
+"price: {p:.2f}".format(p=3.14159) # 'price: 3.14'
+"hi".replace("i", "o")      # 'ho' → troca substring.
+"hi".expandtabs(4)          # tab → espaço (por padrão 8, aqui 4).
+
+# Divisão e junção
+"a,b,c".split(",")          # ['a','b','c'] → quebra em lista.
+"a b c".split()             # ['a','b','c'] → quebra por espaço.
+"line1\nline2".splitlines() # ['line1','line2'] → quebra por linhas.
+",".join(["a","b","c"])     # 'a,b,c' → junta lista com vírgula.
+"hello".partition("l")      # ('he','l','lo') → divide na 1ª ocorrência.
+"hello".rpartition("l")     # ('hel','l','o') → divide na última ocorrência.
+
+# Remoção
+"   hi   ".strip()          # 'hi' → remove espaços dos lados.
+"   hi   ".lstrip()         # 'hi   ' → remove à esquerda.
+"   hi   ".rstrip()         # '   hi' → remove à direita.
+"xxhelloxx".strip("x")      # 'hello' → remove caracteres específicos.
+
+# Testes de tipo de conteúdo
+"abc".isalpha()             # True → só letras.
+"123".isdigit()             # True → só dígitos.
+"abc123".isalnum()          # True → letras/dígitos.
+" ".isspace()               # True → só espaços/brancos.
+"Hello".istitle()           # True → formato título.
+"hello".islower()           # True → só minúsculas.
+"HELLO".isupper()           # True → só maiúsculas.
+"Ⅳ".isnumeric()             # True → número (até romanos).
+"½".isdecimal()             # False → decimal só 0-9.
+"²".isnumeric()             # True → considera expoentes, etc.
+"_var".isidentifier()       # True → nome válido de variável Python.
+"print".isprintable()       # True → caracteres imprimíveis.
+"\n".isprintable()          # False → contém não-imprimível.
+
+# Codificação e tradução
+"á".encode("utf-8")         # b'\xc3\xa1' → codifica bytes.
+bytes([97,98]).decode()     # 'ab' → decodifica para string.
+"hello".maketrans("h","j")  # tabela de tradução (h→j).
+"hello".translate({"h":"j"}) # NÃO funciona direto → precisa int/ord.
+"hello".translate(str.maketrans("h","j")) # 'jello' → traduz chars.
+
+# Diversos
+"test".removeprefix("te")   # 'st' → remove prefixo se existir.
+"test".removesuffix("st")   # 'te' → remove sufixo se existir.
+
