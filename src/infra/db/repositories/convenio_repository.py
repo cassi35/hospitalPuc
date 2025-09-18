@@ -55,3 +55,30 @@ class ConvenioRepository(ConvenioRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e 
+            
+    def findAll(cls)-> List[ConvenioDomain]:
+        with BDConnectionHandler() as database:
+            try:
+                convenios = database.session.query(ConvenioEntity).all()
+                return [ConvenioDomain(
+                   id=c.id,
+                   nome=c.nome,
+                tipo_plano=c.tipo_plano
+                )
+                 for c in convenios]
+            except Exception as e:
+                database.session.rollback()
+                raise e 
+    def findByNome(cls,nome:str)->ConvenioDomain:
+        with BDConnectionHandler() as database:
+            try:
+                convenio = database.session.query(ConvenioEntity).filter_by(nome=nome).first()
+                if convenio:
+                    return ConvenioDomain(
+                        id=convenio.id,
+                        nome=convenio.nome,
+                        tipo_plano=convenio.tipo_plano
+                    )
+            except Exception as e:
+                database.session.rollback()
+                raise e

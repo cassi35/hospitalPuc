@@ -3,7 +3,7 @@ from src.data.usecases.endereco.insert_endereco import EnderecoInsertUseCase
 from src.data.usecases.endereco.delete_endereco import EnderecoDeleteUseCase
 from src.data.usecases.endereco.update_endereco import EnderecoUpdateUseCase
 from src.data.usecases.endereco.list_endereco import EnderecoListUseCase
-from src.infra.db.entities.endereco import Endereco  # ← ADICIONE ESTE IMPORT
+from src.domain.models.endereco_model import Endereco  # ← ADICIONE ESTE IMPORT
 import pytest
 
 @pytest.mark.skip("desabilitado temporariamente")  # ✅ Com motivo
