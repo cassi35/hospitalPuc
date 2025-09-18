@@ -8,7 +8,7 @@ class ConvenioListUseCase(ConvenioListInterface):
     
     def list(self) -> List[Dict]:
         convenios = self.convenio_repository.findAll()
-        return [self.__format__response(convenios) for convenio in convenios]
+        return [self.__format__response(convenio) for convenio in convenios]
     def __format__response(self,convenio:Convenio)-> Dict:
         return  {
             "type":"Convenio",

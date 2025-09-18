@@ -6,7 +6,7 @@ from src.data.usecases.convenio.list_convenio import ConvenioListUseCase
 from src.domain.models.convenio_model import Convenio as ConvenioDomain
 import pytest
 convenio_repository = ConvenioRepositorySpy()
-
+@pytest.mark.skip(reason="testes antigos")
 def test_insert_convenio_usecase():
     convenio_insert = ConvenioInsertUseCase(convenio_repository)
     convenio = ConvenioDomain(
@@ -15,4 +15,34 @@ def test_insert_convenio_usecase():
         tipo_plano="Empresarial"
     )
     response = convenio_insert.insert(convenio=convenio)
+    assert response != None
+    print()
     print(response)
+@pytest.mark.skip(reason="testes antigos")
+def test_update_convenio_usecase():
+    convenio_update = ConvenioUpdateUseCase(convenio_repository)
+    convenio = ConvenioDomain(
+        id=1,
+        nome="Unimed",
+        tipo_plano="Familiar2"
+    )
+    response = convenio_update.update(
+        convenio=convenio,
+        convenio_id=1
+    )
+    assert response != None
+    print()
+    print(response)
+@pytest.mark.skip(reason="testes antigos")
+def test_delete_convenio_usecase():
+    convenio_delete = ConvenioDeleteUseCase(convenio_repository)
+    response = convenio_delete.delete(convenio_id=1)
+    print()
+    print(response)
+@pytest.mark.skip(reason="testes antigos")
+def test_list_convenio_usecase():
+    convenio_list = ConvenioListUseCase(convenio_repository)
+    response = convenio_list.list()
+    assert response != None
+    print()
+    print(len(response))

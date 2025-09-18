@@ -10,10 +10,17 @@ class ConvenioUpdateUseCase(ConvenioUpdateInterface):
         self.convenio_repository = convenio_repository
     
     def update(self, convenio_id: int, convenio: Convenio) -> Dict:
+        self.__validate_id(convenio_id=convenio_id)
         self.__validate_informations(nome=convenio.nome,tipo_plano= convenio.tipo_plano)
         self.__update_convenio(convenio_id=convenio.id,nome=convenio.nome,tipo_plano=convenio.tipo_plano)
         response = self.__format_response(nome=convenio.nome,tipo_plano=convenio.tipo_plano)
         return response
+    def __validate_id(self, convenio_id: int) -> None:
+        if not isinstance(convenio_id, int):
+            raise ValidationError("ID deve ser um inteiro")
+        if convenio_id <= 0:
+            raise ValidationError("ID deve ser um inteiro positivo")
+        return None
     def __validate_informations(self, nome: str, tipo_plano: str) -> None:
         if len(nome) < 1 or len(nome) > 30:
             raise ValidationError("Falta de caracteres")
