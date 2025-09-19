@@ -4,8 +4,8 @@ from src.data.interfaces.paciente_interface_repository import PacienteRepository
 from src.infra.db.entities.paciente import Paciente
 from src.data.interfaces.endereco_interface_repository import EnderecoRepositoryInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface
-from errors.types.http_bad_request import HttpBadRequestError
-from errors.types.http_not_found import HttpNotFoundError
+from src.errors.types.http_bad_request import HttpBadRequestError
+from src.errors.types.http_not_found import HttpNotFoundError
 import re 
 class PacienteInsertUseCase(PacienteInsertInterface):
     def __init__(self, paciente_repository: PacienteRepositoryInterface,endereco_repository=EnderecoRepositoryInterface,convenio_repository=ConvenioRepositoryInterface):

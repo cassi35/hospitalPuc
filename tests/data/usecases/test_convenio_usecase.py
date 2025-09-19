@@ -46,3 +46,4 @@ def test_list_convenio_usecase():
     assert response != None
     print()
     print(len(response))
+    

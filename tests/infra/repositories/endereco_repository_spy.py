@@ -1,7 +1,6 @@
 from typing import List, Optional
 from src.data.interfaces.endereco_interface_repository import EnderecoRepositoryInterface
-from src.infra.db.entities.endereco import Endereco
-
+from src.domain.models.endereco_model import Endereco as EnderecoDomain
 class EnderecoRepositorySpy(EnderecoRepositoryInterface):
     def __init__(self):
         # Tracking insert calls
@@ -30,13 +29,13 @@ class EnderecoRepositorySpy(EnderecoRepositoryInterface):
         }
         self.insert_endereco_call_count += 1
 
-    def select_endereco(self, endereco_id: int) -> Optional[Endereco]:
-        self.select_endereco_attributes = {'id': endereco_id}
+    def select_endereco(self, id: int) -> Optional[EnderecoDomain]:
+        self.select_endereco_attributes = {'id': id}
         self.select_endereco_call_count += 1
         
         # Retorna um endereço fake para teste
-        return Endereco(
-            id=endereco_id,
+        return EnderecoDomain(
+            id=id,
             rua='Rua Fake',
             bairro='Bairro Fake',
             cidade='Cidade Fake',
@@ -59,8 +58,8 @@ class EnderecoRepositorySpy(EnderecoRepositoryInterface):
         self.delete_endereco_attributes = {'id': endereco_id}
         self.delete_endereco_call_count += 1
 
-    def find_by_cep(self, cep: str) -> Optional[Endereco]:
-        return Endereco(
+    def find_by_cep(self, cep: str) -> Optional[EnderecoDomain]:
+        return EnderecoDomain(
             id=99,
             rua='Rua do CEP',
             bairro='Bairro do CEP',
@@ -68,9 +67,9 @@ class EnderecoRepositorySpy(EnderecoRepositoryInterface):
             estado='Estado do CEP',
             cep=cep
         )
-    def select_all_enderecos(self) -> List[Endereco]:
+    def select_all_enderecos(self) -> List[EnderecoDomain]:
         return [
-            Endereco(
+            EnderecoDomain(
                 id=1,
                 rua='Rua 1',
                 bairro='Bairro 1',
@@ -78,7 +77,7 @@ class EnderecoRepositorySpy(EnderecoRepositoryInterface):
                 estado='Estado 1',
                 cep='11111111'
             ),
-            Endereco(
+            EnderecoDomain(
                 id=2,
                 rua='Rua 2',
                 bairro='Bairro 2',

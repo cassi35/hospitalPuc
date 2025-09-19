@@ -49,8 +49,8 @@ class PacienteRepositorySpy(PacienteRepositoryInterface):
             convenio_id=1
         )
         return paciente
-    def udpate_paciente(self, id:int, nome:str, cpf:str, data_nascimento:str, sexo:str, telefone:str, alergia:str, contato_emergencia:str, endereco_id:int, convenio_id:int)-> None:
-        self.udpate_paciente_attributes = {
+    def update_paciente(self, id:int, nome:str, cpf:str, data_nascimento:str, sexo:str, telefone:str, alergia:str, contato_emergencia:str, endereco_id:int, convenio_id:int)-> None:
+        self.update_paciente_attributes = {
             'id': id,
             'nome': nome,
             'cpf': cpf,
