@@ -3,6 +3,7 @@ from src.domain.usecases.setor.insert_setor import SetorInsertUseCase as SetorIn
 from src.data.interfaces.setor_interface_repository import SetorRepositoryInterface 
 from src.infra.db.entities.setor import Setor
 from src.errors.types.http_bad_request import HttpBadRequestError
+import re 
 class SetorInsertUseCase(SetorInsertInterface):
     def __init__(self, setor_repository: SetorRepositoryInterface):
         self.setor_repository = setor_repository
@@ -23,13 +24,13 @@ class SetorInsertUseCase(SetorInsertInterface):
         response = self.__format_response(setor=setor)
         return response
     def __validate_informations(self,nome:str,andar:int,capacidade:int,responsavel:str)-> None:
-        if len(nome) < 0 or len(nome) > 100:
+        if len(nome) < 0 or len(nome) > 100 or re.search(r'[^a-zA-Z]', nome):
             raise HttpBadRequestError("nome invalido")
         if andar < 0 or not isinstance(andar,int):
             raise HttpBadRequestError("ansdar invalido")
         if capacidade < 0 or not isinstance(capacidade,int):
             raise HttpBadRequestError("capacidade invalida")
-        if len(responsavel) < 0 or len(responsavel) > 100:
+        if len(responsavel) < 0 or len(responsavel) > 100 or re:
             raise HttpBadRequestError("responsavel invalido")
         return None
     def __insert_setor(self,nome:str,andar:int,capacidade:int,responsavel:str)-> None:

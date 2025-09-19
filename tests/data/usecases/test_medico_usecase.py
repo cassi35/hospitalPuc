@@ -74,3 +74,4 @@ def test_list_medico_usecase():
     )
     response = medico_list_usecase.list()
     print(response)
+
