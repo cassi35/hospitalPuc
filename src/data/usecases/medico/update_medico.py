@@ -39,7 +39,7 @@ class MedicoUpdateUseCase(MedicoUpdateInterface):
         )
         return response
     def __validate_informations(self,nome:str,cpf:str,especialidade_id:int,telefone:str,email:str,status:str)-> None:
-        if len(cpf) != 11 or self.medico_repository.findByCpf(cpf=cpf) is not None:
+        if len(cpf) != 11 or self.medico_repository.findByCpf(cpf=cpf) == None:
             raise   HttpBadRequestError("cpf invalido ou ja cadastrado")
         if self.especialidade_repository.findById(id=especialidade_id) == None or especialidade_id <= 0 or not isinstance(especialidade_id,int):
             raise HttpBadRequestError("especialidade_id invalido ou nao cadastrado")
