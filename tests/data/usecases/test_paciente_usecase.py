@@ -44,3 +44,55 @@ def test_insert_paciente_usecase():
         paciente=paciente
     )
     print(response)
+@pytest.mark.skip(reason="teste criando com sucesso")
+def test_delete_paciente_usecase():
+    paciente_delete = PacienteDeleteUseCase(
+        paciente_repository=paciente_repository
+    )
+    paciente_id = 1
+    response = paciente_delete.delete(
+        paciente_id=paciente_id
+    )
+    print(response)
+@pytest.mark.skip(reason="teste criando com sucesso")   
+def test_update_paciente_usecase():
+    paciente_update = PacienteUpdateUseCase(
+        paciente_repository=paciente_repository,
+        endereco_repository=endereco_repository,
+        convenio_repository=convenio_repository
+    )
+    paciente_id = 1
+    nome = 'teste atualizado'
+    cpf = '12345678903'
+    data_nascimento = '1990-01-01'
+    sexo = 'm'
+    telefone = '12345678903'
+    alergia = 'nenhuma'
+    contato_emergencia = '12345678903'
+    endereco_id = 13
+    convenio_id = 1
+    paciente = PacienteDomain(
+        id=paciente_id,
+        nome=nome,
+        cpf=cpf,
+        data_nascimento=data_nascimento,
+        sexo=sexo,
+        telefone=telefone,
+        alergia=alergia,
+        contato_emergencia=contato_emergencia,
+        endereco_id=endereco_id,
+        convenio_id=convenio_id
+    )
+    
+    response = paciente_update.update(
+        paciente_id=paciente_id,
+        paciente=paciente
+    )
+    print(response)
+@pytest.mark.skip(reason="teste criando com sucesso")  
+def test_list_paciente_usecase():
+    paciente_list_usecase = PacienteListUseCase(
+        paciente_repository=paciente_repository 
+    )
+    response = paciente_list_usecase.list()
+    print(response[0]["attributes"]['nome'])
