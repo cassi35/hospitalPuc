@@ -26,8 +26,8 @@ class InternacaoUpdateUseCase(InternacaoUpdateInterface):
         self.__validate_internacao_id(internacao_id)
         self.__exists_internacao(internacao_id)
         self.__validate_informations(internacao)
-        self.internacao_repository.update_internacao(
-            internacao_id=internacao_id,
+        self.internacao_repository.update(
+            id=internacao_id,
             paciente_id=internacao.paciente_id,
             medico_id=internacao.medico_id,
             leito_id=internacao.leito_id,
@@ -41,7 +41,7 @@ class InternacaoUpdateUseCase(InternacaoUpdateInterface):
             raise HttpBadRequestError("ID da internação deve ser um número positivo")
 
     def __exists_internacao(self, internacao_id: int) -> None:
-        if not self.internacao_repository.select_internacao(internacao_id):
+        if not self.internacao_repository.findById(internacao_id):
             raise HttpNotFoundError("Internação não encontrada")
 
     def __validate_informations(self, internacao: Internacao) -> None:

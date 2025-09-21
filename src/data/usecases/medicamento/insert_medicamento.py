@@ -22,7 +22,7 @@ class MedicamentoInsertUseCase(MedicamentoInsertInterface):
             raise HttpBadRequestError("Nome do medicamento deve ter no máximo 30 caracteres")
         
         # Verificar se nome é único
-        existing_medicamento = self.medicamento_repository.find_by_nome(medicamento.nome)
+        existing_medicamento = self.medicamento_repository.findByNome(medicamento.nome)
         if existing_medicamento:
             raise HttpBadRequestError("Já existe um medicamento com este nome")
 

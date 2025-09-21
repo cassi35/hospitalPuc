@@ -55,8 +55,23 @@ class PrescricaoRepository(PrescricaoRepositoryInterface):
     def findById(self, id: int) -> PrescricaoDomain:
         self.findById_prescricao_attributes = {"id": id}
         self.findById_prescricao_call_count += 1
-        return PrescricaoDomain(**self.findById_prescricao_attributes)
-
+        return PrescricaoDomain(
+                   id=id,
+                   paciente_id=1,
+                  medico_id=1,
+                 data_prescricao="2025-01-01",
+                 medicamento_id=1,
+                  dosagem=500,
+                  frequencia=3
+              )
     def findAll(self) -> List[PrescricaoDomain]:
         self.findAll_prescricao_call_count += 1
-        return [PrescricaoDomain(**attrs) for attrs in self.findAll_prescricao_attributes]
+        return [PrescricaoDomain(
+            id=1,
+            paciente_id=1,
+            medico_id=1,
+            data_prescricao="2025-01-01",
+            medicamento_id=1,
+            dosagem=500,
+            frequencia=3
+        )]

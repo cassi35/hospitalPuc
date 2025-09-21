@@ -14,20 +14,19 @@ def test_create_internacao():
     data_internacao = '2025-09-01'
     data_alta = '2025-09-05'
     leito_id = 1
-    motivo = 'Tratamento pneumonia'
+    data_entrada = '2025-09-01'
     status = 'internado'
-    
     internacao_repository.create(
         paciente_id=paciente_id,
         medico_id=medico_id,
         data_internacao=data_internacao,
         data_alta=data_alta,
         leito_id=leito_id,
-        motivo=motivo,
+        data_entrada=data_entrada,
         status=status
     )
-    
-    sql = f'select * from internacao where paciente_id = {paciente_id} and motivo = "{motivo}"'
+
+    sql = f'select * from internacao where paciente_id = {paciente_id} and status = "{status}"'
     response = connection.execute(text(sql))
     registry = response.mappings().fetchone()
     assert registry['paciente_id'] == paciente_id
@@ -39,20 +38,15 @@ def test_update_internacao():
     id = 1
     paciente_id = 1
     medico_id = 2
-    data_internacao = '2025-09-02'
-    data_alta = '2025-09-07'
     leito_id = 2
-    motivo = 'Tratamento atualizado'
     status = 'alta'
-    
+    data_entrada = '2025-09-01'
     internacao_repository.update(
         id=id,
         paciente_id=paciente_id,
         medico_id=medico_id,
-        data_internacao=data_internacao,
-        data_alta=data_alta,
         leito_id=leito_id,
-        motivo=motivo,
+        data_entrada=data_entrada,
         status=status
     )
     

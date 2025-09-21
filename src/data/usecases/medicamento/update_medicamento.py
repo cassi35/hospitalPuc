@@ -1,20 +1,26 @@
 from typing import Dict
-from src.domain.usecases.medicamento.insert_medicamento import MedicamentoInsertUseCase as MedicamentoInsertInterface
+from src.domain.usecases.medicamento.update_medicamento import MedicamentoUpdateUseCase as MedicamentoInsertInterface
 from src.data.interfaces.medicamento_interface_repository import MedicamentoRepositoryInterface
 from src.infra.db.entities.medicamento import Medicamento
 from src.errors.types.http_bad_request import HttpBadRequestError
 from datetime import datetime
 import re
 
-class MedicamentoInsertUseCase(MedicamentoInsertInterface):
+class MedicamentoUpdateUseCase(MedicamentoInsertInterface):
     def __init__(self, medicamento_repository: MedicamentoRepositoryInterface):
         self.medicamento_repository = medicamento_repository
 
-    def insert(self, medicamento: Medicamento) -> Dict:
-        self.__validate_informations(medicamento)
-        self.__insert_medicamento(medicamento)
+    def update(self, medicamento_id: int, medicamento: Medicamento) -> Dict:
+        self.__exists_medicamento(id=medicamento_id)
+        self.__validate_informations(medicamento=medicamento)
+        self.__update_medicamento(medicamento=medicamento)
         return self.__format_response(medicamento)
-
+    def __exists_medicamento(self,id:int) -> None:
+        if id < 0 or not isinstance(id,int):
+            raise HttpBadRequestError("ID inválido")
+        exists = self.medicamento_repository.findById(id=id)
+        if not exists:
+            raise HttpBadRequestError("Medicamento não encontrado")
     def __validate_informations(self, medicamento: Medicamento) -> None:
         # Validar nome
         if not medicamento.nome or medicamento.nome.strip() == "" or medicamento.nome.isalpha() == False:
@@ -50,13 +56,14 @@ class MedicamentoInsertUseCase(MedicamentoInsertInterface):
         if not isinstance(medicamento.quantidade_estoque, int) or medicamento.quantidade_estoque < 0:
             raise HttpBadRequestError("Quantidade em estoque deve ser um número inteiro maior ou igual a 0")
 
-    def __insert_medicamento(self, medicamento: Medicamento) -> None:
-        self.medicamento_repository.create(
+    def __update_medicamento(self, medicamento: Medicamento) -> None:
+        self.medicamento_repository.update(
             nome=medicamento.nome,
             descricao=medicamento.descricao,
             fabricante=medicamento.fabricante,
             validade=medicamento.validade,
-            quantidade_estoque=medicamento.quantidade_estoque
+            quantidade_estoque=medicamento.quantidade_estoque,
+            id=medicamento.id
         )
 
     def __format_response(self, medicamento: Medicamento) -> Dict:

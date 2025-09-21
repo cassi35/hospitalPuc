@@ -89,7 +89,7 @@ class PrescricaoUpdateUseCase(PrescricaoUpdateInterface):
 
     def __update_prescricao(self, prescricao_id: int, prescricao: Prescricao) -> None:
         self.prescricao_repository.update(
-            prescricao_id=prescricao_id,
+            id=prescricao_id,
             paciente_id=prescricao.paciente_id,
             medico_id=prescricao.medico_id,
             data_prescricao=prescricao.data_prescricao,

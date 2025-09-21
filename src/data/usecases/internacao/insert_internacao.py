@@ -32,13 +32,13 @@ class InternacaoInsertUseCase(InternacaoInsertInterface):
         # medico_id
         if not internacao.medico_id or not isinstance(internacao.medico_id, int) or internacao.medico_id <= 0:
             raise HttpBadRequestError("ID do médico inválido")
-        if not self.medico_repository.select_medico(internacao.medico_id):
+        if not self.medico_repository.findById(internacao.medico_id):
             raise HttpBadRequestError("Médico não encontrado")
 
         # leito_id
         if not internacao.leito_id or not isinstance(internacao.leito_id, int) or internacao.leito_id <= 0:
             raise HttpBadRequestError("ID do leito inválido")
-        leito = self.leito_repository.select_leito(internacao.leito_id)
+        leito = self.leito_repository.findById(internacao.leito_id)
         if not leito:
             raise HttpBadRequestError("Leito não encontrado")
         if hasattr(leito, "status") and getattr(leito, "status", None) == "ocupado":
