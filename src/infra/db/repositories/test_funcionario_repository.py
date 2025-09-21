@@ -15,9 +15,6 @@ def test_create_funcionario():
     cpf = '12345678901'
     telefone = '11987654321'
     email = 'carlos@hospital.com'
-    endereco_id = 1
-    salario = 5500.00
-    
     funcionario_repository.create(
         nome=nome,
         cargo=cargo,
@@ -25,8 +22,7 @@ def test_create_funcionario():
         cpf=cpf,
         telefone=telefone,
         email=email,
-        endereco_id=endereco_id,
-        salario=salario
+        data_contratacao="2023-10-01"
     )
     
     sql = f'select * from funcionario where cpf = "{cpf}" and email = "{email}"'
@@ -45,8 +41,6 @@ def test_update_funcionario():
     cpf = '12345678901'
     telefone = '11987654322'
     email = 'carlos.santos@hospital.com'
-    endereco_id = 2
-    salario = 6500.00
     
     funcionario_repository.update(
         id=id,
@@ -56,8 +50,7 @@ def test_update_funcionario():
         cpf=cpf,
         telefone=telefone,
         email=email,
-        endereco_id=endereco_id,
-        salario=salario
+        data_contratacao="2023-10-01"
     )
     
     sql = f'select * from funcionario where id = {id}'

@@ -35,12 +35,12 @@ class FinanceiroInsertUseCase(FinanceiroInsertInterface):
         # paciente_id
         if not isinstance(financeiro.paciente_id, int) or financeiro.paciente_id <= 0:
             raise HttpBadRequestError("paciente_id inválido")
-        if not self.paciente_repository.findById(financeiro.paciente_id):
+        if not self.paciente_repository.select_paciente(financeiro.paciente_id):
             raise HttpBadRequestError("Paciente não encontrado")
         # convenio_id
         if not isinstance(financeiro.convenio_id, int) or financeiro.convenio_id <= 0:
             raise HttpBadRequestError("convenio_id inválido")
-        if not self.convenio_repository.findById(financeiro.convenio_id):
+        if not self.convenio_repository.select_convenio(financeiro.convenio_id):
             raise HttpBadRequestError("Convênio não encontrado")
         # valor
         if financeiro.valor is None:
