@@ -14,7 +14,7 @@ def test_handle():
     http_request_mock = HttpRequestMock()
     usecase_spy = EnderecoInsertUsecaseSpy()
     endereco_insert_controller = EnderecoInsertController(usecase_spy)
-    response = endereco_insert_controller.handle(http_request_mock)
+    response = endereco_insert_controller.handle(http_request=http_request_mock)
     print()
     print(response.status_code)
     assert isinstance(response,HTTPResponse)
