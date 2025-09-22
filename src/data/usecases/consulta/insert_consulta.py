@@ -6,7 +6,7 @@ from src.data.interfaces.consulta_interface_repository import ConsultaRepository
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
 from src.data.interfaces.especialidade_interface_repository import EspecialidadeRepositoryInterface
-from src.infra.db.entities.consulta import Consulta
+from src.domain.models.consulta_model import Consulta
 from src.errors.types.http_bad_request import HttpBadRequestError
 
 class ConsultaInsertUseCase(ConsultaInsertInterface):

@@ -4,7 +4,7 @@ from src.data.interfaces.prescricao_interface_repository import PrescricaoReposi
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
 from src.data.interfaces.medicamento_interface_repository import MedicamentoRepositoryInterface
-from src.infra.db.entities.prescricao import Prescricao
+from src.domain.models.prescricao_model import Prescricao
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 from datetime import datetime

@@ -1,5 +1,6 @@
+from typing import Optional
 class Medico:
-    def __init__(self, id: int, nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str):
+    def __init__(self,  nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str, id:Optional[int]=None):
         self.id = id
         self.nome = nome
         self.cpf = cpf

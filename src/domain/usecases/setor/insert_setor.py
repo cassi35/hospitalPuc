@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.setor import Setor
+from src.domain.models.setor_model import Setor
 
 class SetorInsertUseCase(ABC):
     @abstractmethod

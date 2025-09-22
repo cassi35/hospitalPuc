@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.convenio.list_convenio import ConvenioListUseCase as ConvenioListInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface
-from src.infra.db.entities.convenio import Convenio
+from src.domain.models.convenio_model import Convenio
 class ConvenioListUseCase(ConvenioListInterface):
     def __init__(self, convenio_repository: ConvenioRepositoryInterface):
         self.convenio_repository = convenio_repository

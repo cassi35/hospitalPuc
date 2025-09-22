@@ -1,7 +1,8 @@
+from typing import Optional
 from datetime import date
 
 class Paciente:
-    def __init__(self, id: int, nome: str, cpf: str, data_nascimento: date, sexo: str, telefone: str, contato_emergencia: str, alergia: str, endereco_id: int, convenio_id: int):
+    def __init__(self,nome: str, cpf: str, data_nascimento: date, sexo: str, telefone: str, contato_emergencia: str, alergia: str, endereco_id: int, convenio_id: int, id:Optional[int]=None):
         self.id = id
         self.nome = nome
         self.cpf = cpf

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.financeiro import Financeiro
+from src.domain.models.financeiro_model import Financeiro
 
 class FinanceiroUpdateUseCase(ABC):
     @abstractmethod

@@ -4,7 +4,7 @@ from src.domain.usecases.financeiro.insert_financeiro import FinanceiroInsertUse
 from src.data.interfaces.financeiro_interface_repository import FinanceiroRepositoryInterface
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface
-from src.infra.db.entities.financeiro import Financeiro
+from src.domain.models.financeiro_model import Financeiro
 from src.errors.types.http_bad_request import HttpBadRequestError
 
 class FinanceiroInsertUseCase(FinanceiroInsertInterface):

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.exame import Exame
+from src.domain.models.exame_model import Exame
 
 class ExameUpdateUseCase(ABC):
     @abstractmethod

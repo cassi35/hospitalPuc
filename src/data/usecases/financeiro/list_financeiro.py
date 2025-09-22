@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.financeiro.list_financeiro import FinanceiroListUseCase as FinanceiroListInterface
 from src.data.interfaces.financeiro_interface_repository import FinanceiroRepositoryInterface
-from src.infra.db.entities.financeiro import Financeiro
+from src.domain.models.financeiro_model import Financeiro
 
 class FinanceiroListUseCase(FinanceiroListInterface):
     def __init__(self, financeiro_repository: FinanceiroRepositoryInterface):

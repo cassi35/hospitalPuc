@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.paciente.insert_paciente import PacienteInsertUseCase as PacienteInsertInterface
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface 
-from src.infra.db.entities.paciente import Paciente
+from src.domain.models.paciente_model import Paciente
 from src.data.interfaces.endereco_interface_repository import EnderecoRepositoryInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface
 from src.errors.types.http_bad_request import HttpBadRequestError

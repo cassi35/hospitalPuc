@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.convenio.update_convenio import ConvenioUpdateUseCase as ConvenioUpdateInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface 
-from src.infra.db.entities.convenio import Convenio
+from src.domain.models.convenio_model import Convenio
 from src.errors.types.validation_error import ValidationError
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError

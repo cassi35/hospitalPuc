@@ -1,7 +1,7 @@
 from typing import Dict, List
 from src.domain.usecases.prescricao.list_prescricao import PrescricaoListUseCase as PrescricaoListInterface
 from src.data.interfaces.prescricao_interface_repository import PrescricaoRepositoryInterface
-from src.infra.db.entities.prescricao import Prescricao
+from src.domain.models.prescricao_model import Prescricao
 
 class PrescricaoListUseCase(PrescricaoListInterface):
     def __init__(self, prescricao_repository: PrescricaoRepositoryInterface):

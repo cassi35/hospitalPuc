@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.exame.list_exame import ExameListUseCase as ExameListInterface
 from src.data.interfaces.exame_interface_repository import ExameRepositoryInterface
-from src.infra.db.entities.exame import Exame  # apenas para type hints
+from src.domain.models.exame_model import Exame  # apenas para type hints
 
 class ExameListUseCase(ExameListInterface):
     def __init__(self, exame_repository: ExameRepositoryInterface):

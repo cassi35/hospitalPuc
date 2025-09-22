@@ -1,7 +1,7 @@
 from typing import Dict, List
 from src.domain.usecases.endereco.insert_endereco import EnderecoInsertUseCase as EnderecoInsertInterface
 from src.data.interfaces.endereco_interface_repository import EnderecoRepositoryInterface 
-from src.infra.db.entities.endereco import Endereco
+from src.domain.models.endereco_model import Endereco
 from src.errors.types.http_bad_request import HttpBadRequestError
 
 class EnderecoInsertUseCase(EnderecoInsertInterface):

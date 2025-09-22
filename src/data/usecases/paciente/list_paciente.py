@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.paciente.list_paciente import PacienteListUseCase as PacienteListInterface
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
-from src.infra.db.entities.paciente import Paciente
+from src.domain.models.paciente_model import Paciente
 class PacienteListUseCase(PacienteListInterface):
     def __init__(self, paciente_repository: PacienteRepositoryInterface):
         self.paciente_repository = paciente_repository

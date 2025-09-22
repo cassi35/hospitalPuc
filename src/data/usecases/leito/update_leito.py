@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.leito.update_leito import LeitoUpdateUseCase as LeitoUpdateInterface
 from src.data.interfaces.leito_interface_repository import LeitoRepositoryInterface 
-from src.infra.db.entities.leito import Leito
+from src.domain.models.leito_model import Leito
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 from src.data.interfaces.setor_interface_repository import SetorRepositoryInterface

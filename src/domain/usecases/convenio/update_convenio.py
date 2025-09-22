@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.convenio import Convenio
+from src.domain.models.convenio_model import Convenio
 
 class ConvenioUpdateUseCase(ABC):
     @abstractmethod

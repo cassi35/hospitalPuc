@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.internacao.list_internacao import InternacaoListUseCase as InternacaoListInterface
 from src.data.interfaces.internacao_interface_repository import InternacaoRepositoryInterface
-from src.infra.db.entities.internacao import Internacao
+from src.domain.models.internacao_model import Internacao
 
 class InternacaoListUseCase(InternacaoListInterface):
     def __init__(self, internacao_repository: InternacaoRepositoryInterface):

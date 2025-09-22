@@ -3,7 +3,7 @@ from src.domain.usecases.paciente.update_paciente import PacienteUpdateUseCase a
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface 
 from src.data.interfaces.endereco_interface_repository import EnderecoRepositoryInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface
-from src.infra.db.entities.paciente import Paciente
+from src.domain.models.paciente_model import Paciente
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 import re 

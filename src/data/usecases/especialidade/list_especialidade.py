@@ -1,7 +1,7 @@
 from typing import List, Dict
 from src.domain.usecases.especialidade.list_especialidade import EspecialidadeListUseCase as EspecialidadeListInterface
 from src.data.interfaces.especialidade_interface_repository import EspecialidadeRepositoryInterface
-from src.infra.db.entities.especialidade import Especialidade
+from src.domain.models.especialidade_model import Especialidade
 class EspecialidadeListUseCase(EspecialidadeListInterface):
     def __init__(self, especialidade_repository: EspecialidadeRepositoryInterface):
         self.especialidade_repository = especialidade_repository

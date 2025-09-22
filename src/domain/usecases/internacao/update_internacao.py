@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.internacao import Internacao
+from src.domain.models.internacao_model import Internacao
 
 class InternacaoUpdateUseCase(ABC):
     @abstractmethod

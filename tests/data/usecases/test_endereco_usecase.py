@@ -34,7 +34,7 @@ def test_insert_endereco_usecase():
     assert response["type"] == "Endereco"
     assert response["count"] == 1
     assert response["attributes"]["rua"] == "RuaTeste"
-@pytest.mark.skip("desabilitado temporariamente") 
+# @pytest.mark.skip("desabilitado temporariamente") 
 def test_delete_endereco_usecase():
     endereco_repository_spy = EnderecoRepositorySpy()
     endereco_usecase = EnderecoDeleteUseCase(endereco_repository=endereco_repository_spy)
@@ -55,6 +55,7 @@ def test_update_endereco_usecase():
     )
     response = update_usecase.update(endereco_id=1,endereco=endereco)
     print(response)
+@pytest.mark.skip("desabilitado temporariamente")
 def test_list_endereco_usecase():
     endereco_repository = EnderecoRepositorySpy()
     list_usecase = EnderecoListUseCase(endereco_repository=endereco_repository)

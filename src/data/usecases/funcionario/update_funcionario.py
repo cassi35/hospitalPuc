@@ -5,7 +5,7 @@ import re
 from src.domain.usecases.funcionario.update_funcionario import FuncionarioUpdateUseCase as FuncionarioUpdateInterface
 from src.data.interfaces.funcionario_interface_repository import FuncionarioRepositoryInterface
 from src.data.interfaces.setor_interface_repository import SetorRepositoryInterface
-from src.infra.db.entities.funcionario import Funcionario
+from src.domain.models.funcionario_model import Funcionario
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 

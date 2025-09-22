@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.convenio.insert_convenio import ConvenioInsertUseCase as ConvenioInsertInterface
 from src.data.interfaces.convenio_interface_repository import ConvenioRepositoryInterface 
-from src.infra.db.entities.convenio import Convenio
+from src.domain.models.convenio_model import Convenio
 from src.errors.types.http_bad_request import HttpBadRequestError
 class ConvenioInsertUseCase(ConvenioInsertInterface):
     def __init__(self, convenio_repository: ConvenioRepositoryInterface):

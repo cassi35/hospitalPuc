@@ -2,7 +2,7 @@
 from typing import List, Dict
 from src.domain.usecases.consulta.list_consulta import ConsultaListUseCase as ConsultaListInterface
 from src.data.interfaces.consulta_interface_repository import ConsultaRepositoryInterface
-from src.infra.db.entities.consulta import Consulta
+from src.domain.models.consulta_model import Consulta
 
 class ConsultaListUseCase(ConsultaListInterface):
     def __init__(self, consulta_repository: ConsultaRepositoryInterface):

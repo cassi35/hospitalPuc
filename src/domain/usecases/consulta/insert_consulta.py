@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.consulta import Consulta
+from src.domain.models.consulta_model import Consulta
 
 class ConsultaInsertUseCase(ABC):
     @abstractmethod

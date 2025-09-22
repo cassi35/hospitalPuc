@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.internacao.insert_internacao import InternacaoInsertUseCase as InternacaoInsertInterface
 from src.data.interfaces.internacao_interface_repository import InternacaoRepositoryInterface 
-from src.infra.db.entities.internacao import Internacao
+from src.domain.models.internacao_model import Internacao
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface

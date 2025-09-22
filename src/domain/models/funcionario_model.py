@@ -1,7 +1,8 @@
+from typing import Optional
 from datetime import date
 
 class Funcionario:
-    def __init__(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: date):
+    def __init__(self, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: date, id:Optional[int]=None):
         self.id = id
         self.nome = nome
         self.cpf = cpf

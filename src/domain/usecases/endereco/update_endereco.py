@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.endereco import Endereco
+from src.domain.models.endereco_model import Endereco
 
 class EnderecoUpdateUseCase(ABC):
     @abstractmethod

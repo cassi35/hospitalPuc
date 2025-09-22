@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.prescricao import Prescricao
+from src.domain.models.prescricao_model import Prescricao
 
 class PrescricaoInsertUseCase(ABC):
     @abstractmethod

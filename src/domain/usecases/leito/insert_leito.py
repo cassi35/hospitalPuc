@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.leito import Leito
+from src.domain.models.leito_model import Leito
 
 class LeitoInsertUseCase(ABC):
     @abstractmethod

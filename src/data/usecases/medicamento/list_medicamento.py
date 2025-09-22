@@ -1,7 +1,7 @@
 from typing import Dict, List
 from src.domain.usecases.medicamento.list_medicamento import MedicamentoListUseCase as MedicamentoListInterface
 from src.data.interfaces.medicamento_interface_repository import MedicamentoRepositoryInterface
-from src.infra.db.entities.medicamento import Medicamento
+from src.domain.models.medicamento_model import Medicamento
 
 class MedicamentoListUseCase(MedicamentoListInterface):
     def __init__(self, medicamento_repository: MedicamentoRepositoryInterface):

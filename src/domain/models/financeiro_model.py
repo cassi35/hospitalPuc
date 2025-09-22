@@ -1,7 +1,8 @@
+from typing import Optional
 from datetime import date
 
 class Financeiro:
-    def __init__(self, id: int, paciente_id: int, convenio_id: int, valor: float, data_emisao: date, data_vencimento: date, status_pagamento: str):
+    def __init__(self,  paciente_id: int, convenio_id: int, valor: float, data_emisao: date, data_vencimento: date, status_pagamento: str, id:Optional[int]=None):
         self.id = id
         self.paciente_id = paciente_id
         self.convenio_id = convenio_id

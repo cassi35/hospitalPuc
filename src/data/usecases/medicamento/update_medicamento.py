@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.medicamento.update_medicamento import MedicamentoUpdateUseCase as MedicamentoInsertInterface
 from src.data.interfaces.medicamento_interface_repository import MedicamentoRepositoryInterface
-from src.infra.db.entities.medicamento import Medicamento
+from src.domain.models.medicamento_model import Medicamento
 from src.errors.types.http_bad_request import HttpBadRequestError
 from datetime import datetime
 import re

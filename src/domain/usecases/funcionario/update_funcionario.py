@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.funcionario import Funcionario
+from src.domain.models.funcionario_model import Funcionario
 
 class FuncionarioUpdateUseCase(ABC):
     @abstractmethod

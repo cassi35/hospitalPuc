@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.setor.update_setor import SetorUpdateUseCase as SetorUpdateInterface
 from src.data.interfaces.setor_interface_repository import SetorRepositoryInterface 
-from src.infra.db.entities.setor import Setor
+from src.domain.models.setor_model import Setor
 from src.errors.types.http_bad_request import HttpBadRequestError
 import re 
 class SetorUpdateUseCase(SetorUpdateInterface):

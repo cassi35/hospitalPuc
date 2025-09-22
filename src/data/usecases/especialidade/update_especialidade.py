@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.especialidade.update_especialidade import EspecialidadeUpdateUseCase as EspecialidadeUpdateInterface
 from src.data.interfaces.especialidade_interface_repository import EspecialidadeRepositoryInterface 
-from src.infra.db.entities.especialidade import Especialidade
+from src.domain.models.especialidade_model import Especialidade
 from src.errors.types.http_bad_request import HttpBadRequestError
 class EspecialidadeUpdateUseCase(EspecialidadeUpdateInterface):
     def __init__(self, especialidade_repository: EspecialidadeRepositoryInterface):

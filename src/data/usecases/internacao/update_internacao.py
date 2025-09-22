@@ -4,7 +4,7 @@ from src.data.interfaces.internacao_interface_repository import InternacaoReposi
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
 from src.data.interfaces.leito_interface_repository import LeitoRepositoryInterface
-from src.infra.db.entities.internacao import Internacao
+from src.domain.models.internacao_model import Internacao
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
 from datetime import datetime

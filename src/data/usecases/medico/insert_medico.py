@@ -1,7 +1,7 @@
 from typing import Dict
 from src.domain.usecases.medico.insert_medico import MedicoInsertUseCase as MedicoInsertInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface 
-from src.infra.db.entities.medico import Medico
+from src.domain.models.medico_model import Medico
 from src.data.interfaces.especialidade_interface_repository import EspecialidadeRepositoryInterface
 from src.errors.types.http_bad_request import HttpBadRequestError
 import re 

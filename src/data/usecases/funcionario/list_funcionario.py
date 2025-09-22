@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from src.domain.usecases.funcionario.list_funcionario import FuncionarioListUseCase as FuncionarioListInterface
 from src.data.interfaces.funcionario_interface_repository import FuncionarioRepositoryInterface
-from src.infra.db.entities.funcionario import Funcionario
+from src.domain.models.funcionario_model import Funcionario
 
 class FuncionarioListUseCase(FuncionarioListInterface):
     def __init__(self, funcionario_repository: FuncionarioRepositoryInterface):

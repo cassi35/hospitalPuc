@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.infra.db.entities.especialidade import Especialidade
+from src.domain.models.especialidade_model import Especialidade
 
 class EspecialidadeInsertUseCase(ABC):
     @abstractmethod

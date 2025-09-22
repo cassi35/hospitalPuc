@@ -4,7 +4,7 @@ from src.domain.usecases.exame.insert_exame import ExameInsertUseCase as ExameIn
 from src.data.interfaces.exame_interface_repository import ExameRepositoryInterface
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
-from src.infra.db.entities.exame import Exame
+from src.domain.models.exame_model import Exame
 from src.errors.types.http_bad_request import HttpBadRequestError
 
 class ExameInsertUseCase(ExameInsertInterface):
