@@ -1,5 +1,6 @@
 from src.presentation.controllers.endereco.insert_endereco_controller import EnderecoInsertController
 from tests.data.mock.endereco.insert_endereco_spy import EnderecoInsertUsecaseSpy
+from src.presentation.http_types.http_response import HTTPResponse
 class HttpRequestMock():
     def __init__(self) -> None:
         self.body = {
@@ -14,4 +15,8 @@ def test_handle():
     usecase_spy = EnderecoInsertUsecaseSpy()
     endereco_insert_controller = EnderecoInsertController(usecase_spy)
     response = endereco_insert_controller.handle(http_request_mock)
-    print(response)
+    print()
+    print(response.status_code)
+    assert isinstance(response,HTTPResponse)
+    assert response.status_code == 200 
+    assert response.body["type"] is not None
