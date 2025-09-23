@@ -1,1 +1,9 @@
-
+from cerberus import Validator
+from src.errors.types.http_unprocessable_entity import HttpUnprocessableEntityError
+async def update_especialidade_validator(body:dict) -> None:
+    body_validator = Validator({
+        "nome":{"type":"string","required":True,"empty":False},
+        "descricao":{"type":"string","required":True,"empty":False}
+    })
+    if not body_validator.validate(body):
+        raise HttpUnprocessableEntityError(body_validator.errors)

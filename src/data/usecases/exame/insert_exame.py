@@ -32,11 +32,8 @@ class ExameInsertUseCase(ExameInsertInterface):
         return self.__format_response(exame)
 
     def __validate_informations(self, exame: Exame) -> None:
-        # tipo_exame (obrigatório, não vazio)
         if not exame.tipo_exame or str(exame.tipo_exame).strip() == "":
             raise HttpBadRequestError("tipo_exame é obrigatório")
-
-        # data_exame (obrigatória, data válida, ≤ hoje)
         if not exame.data_exame:
             raise HttpBadRequestError("data_exame é obrigatória")
         try:
@@ -45,22 +42,15 @@ class ExameInsertUseCase(ExameInsertInterface):
                 raise HttpBadRequestError("data_exame não pode ser futura")
         except ValueError:
             raise HttpBadRequestError("data_exame inválida")
-
-        # paciente_id (FK existente)
         if not isinstance(exame.paciente_id, int) or exame.paciente_id <= 0:
             raise HttpBadRequestError("paciente_id inválido")
         if not self.paciente_repository.select_paciente(exame.paciente_id):
             raise HttpBadRequestError("Paciente não encontrado")
-
-        # medico_id (FK existente)
         if not isinstance(exame.medico_id, int) or exame.medico_id <= 0:
             raise HttpBadRequestError("medico_id inválido")
         if not self.medico_repository.findById(exame.medico_id):
             raise HttpBadRequestError("Médico não encontrado")
 
-        # resultado (opcional) -> sem validação extra
-
-        # status
         if exame.status not in ["solicitado", "em andamento", "concluído"]:
             raise HttpBadRequestError("status inválido")
 
