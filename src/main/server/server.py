@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from fastapi.responses import Response
 from src.main.routes.endereco_routes import endereco_router
+from src.main.routes.convenio_routes import convenio_router
+from src.main.routes.consulta_routes import consulta_router
 description = """ 
 this is a api for hospital puc system.
 """
@@ -23,3 +25,5 @@ async def favicon():
     return Response(status_code=204)
 
 app.include_router(endereco_router,prefix=f'/{version}/endereco',tags=["endereco"])
+app.include_router(convenio_router,prefix=f'/{version}/convenio',tags=["convenio"])
+app.include_router(consulta_router,prefix=f'/{version}/consulta',tags=["consulta"])

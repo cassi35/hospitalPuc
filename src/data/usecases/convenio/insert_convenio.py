@@ -17,10 +17,10 @@ class ConvenioInsertUseCase(ConvenioInsertInterface):
             raise HttpBadRequestError("falta de caracteres")
         if(tipo_plano not in ['Individual','Familiar','Empresarial']):
             raise HttpBadRequestError("tipo de plano invalido")
-        if (not nome.isalpha()):
-            raise HttpBadRequestError("somente caracteres")
-        if (not tipo_plano.isalpha()):
-            raise HttpBadRequestError("somente caracteres")
+        if not nome.replace(' ',' ').isalpha():
+            raise HttpBadRequestError("somente caracteres no nome")
+        if not tipo_plano.replace(' ',' ').isalpha():
+            raise HttpBadRequestError("somente caracteres no tipo de plano")
         return None
     def __insert_convenio(self, nome: str, tipo_plano: str) -> None:
         self.convenio_repository.insert_convenio(tipo_plano=tipo_plano,nome=nome)

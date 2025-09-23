@@ -12,3 +12,4 @@ class ConsultaInsertController(ControllerInterface):
             consulta=consulta
         )
         return HTTPResponse(status_code=200,body=response)
+
