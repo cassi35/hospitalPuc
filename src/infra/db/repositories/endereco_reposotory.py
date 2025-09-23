@@ -21,11 +21,11 @@ class EnderecoRepository(EnderecoRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e 
-    
+    @classmethod
     def select_endereco(cls, id: int) -> EnderecoDomain:
         with BDConnectionHandler() as database:
             try:
-               endereco = database.session. query(EnderecoEntity).filter_by(id=id).first()
+               endereco = database.session.query(EnderecoEntity).filter_by(id=id).first()
                if endereco:
                     return EnderecoDomain(
                         id=endereco.id,

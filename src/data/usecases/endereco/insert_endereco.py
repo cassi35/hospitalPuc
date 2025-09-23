@@ -33,15 +33,18 @@ class EnderecoInsertUseCase(EnderecoInsertInterface):
         return response
 
     def _validate_informations(self, rua: str, bairro: str, cidade: str, estado: str, cep: str) -> None:
-        informations: List[str] = [rua, bairro, cidade, estado, cep]
-        for idx, value in enumerate(informations):
-            if idx == 4:  # CEP
-                if len(value) != 8 or not value.isdigit():
-                    raise HttpBadRequestError("cep invalido")
-            elif len(value) > 30 or len(value) < 1:
-                raise HttpBadRequestError("falta de caracteres")
-            elif not value.isalpha():
-                raise HttpBadRequestError("somente caracteres")
+        if len(rua) > 30 or len(rua) < 1:
+            raise HttpBadRequestError("rua: falta de caracteres")
+        if len(bairro) > 30 or len(bairro) < 1:
+            raise HttpBadRequestError("bairro: falta de caracteres")
+        if len(cidade) > 30 or len(cidade) < 1:
+            raise HttpBadRequestError("cidade: falta de caracteres")
+        if len(estado) > 30 or len(estado) < 1:
+            raise HttpBadRequestError("estado: falta de caracteres")
+        elif not estado.replace(" ", "").isalpha():  # Remove espaços para validar
+            raise HttpBadRequestError("estado deve conter somente caracteres")
+        if len(cep) != 8 or not cep.isdigit():
+            raise HttpBadRequestError("cep invalido") 
 
     def _insert_endereco(self, rua: str, bairro: str, cidade: str, estado: str, cep: str) -> None:
         self.endereco_repository.insert_endereco(
