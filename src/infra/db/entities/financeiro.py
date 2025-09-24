@@ -9,7 +9,7 @@ class Financeiro(Base):
     paciente_id = Column(Integer,ForeignKey('Paciente.id'),nullable=True)
     convenio_id = Column(Integer,ForeignKey('convenio.id'),nullable=True)
     valor = Column(Float,nullable=True)
-    data_emisao = Column(Date,nullable=True)
+    data_emissao = Column(Date,nullable=True)
     data_vencimento = Column(Date,nullable=True)
     status_pagamento = Column(Enum('pago','pendente','cancelado'),nullable=True)
     

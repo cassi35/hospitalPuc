@@ -15,3 +15,4 @@ class FinanceiroUpdateController(ControllerInterface):
             financeiro=financeiro
         )
         return HTTPResponse(status_code=200,body=response)
+

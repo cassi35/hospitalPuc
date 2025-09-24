@@ -19,7 +19,7 @@ class FinanceiroListUseCase(FinanceiroListInterface):
                 "paciente_id": financeiro.paciente_id,
                 "convenio_id": financeiro.convenio_id,
                 "valor": financeiro.valor,
-                "data_emisao": financeiro.data_emisao.isoformat() if financeiro.data_emisao else None,
+                "data_emissao": financeiro.data_emissao.isoformat() if financeiro.data_emissao else None,
                 "data_vencimento": financeiro.data_vencimento.isoformat() if financeiro.data_vencimento else None,
                 "status_pagamento": financeiro.status_pagamento
             }

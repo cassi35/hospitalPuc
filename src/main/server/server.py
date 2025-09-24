@@ -7,6 +7,7 @@ from src.main.routes.convenio_routes import convenio_router
 from src.main.routes.consulta_routes import consulta_router
 from src.main.routes.exame_routes import exame_router
 from src.main.routes.especialidade_routes import especialidade_router
+from src.main.routes.financeiro_routes import financeiro_routes
 description = """ 
 this is a api for hospital puc system.
 """
@@ -31,3 +32,4 @@ app.include_router(convenio_router,prefix=f'/{version}/convenio',tags=["convenio
 app.include_router(consulta_router,prefix=f'/{version}/consulta',tags=["consulta"])
 app.include_router(especialidade_router,prefix=f'/{version}/especialidade',tags=["especialidade"])
 app.include_router(exame_router,prefix=f'/{version}/exame',tags=["exame"])
+app.include_router(financeiro_routes,prefix=f'/{version}/financeiro',tags=["financeiro"])

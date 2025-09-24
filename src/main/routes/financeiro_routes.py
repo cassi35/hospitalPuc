@@ -18,3 +18,24 @@ async def insert_financeiro(request:Request):
         return await request_adapter(request,insert_financeiro_composer())
     except Exception as error:
         return handle_errors(error)
+@financeiro_routes.patch('/{id}')
+async def update_financeiro(id:int, request:Request):
+    try:
+        body = await request.json()
+        await update_financeiro_validator(body)
+        return await request_adapter(request,update_financeiro_composer())
+    except Exception as error:
+        return handle_errors(error)
+@financeiro_routes.get('/')
+async def list_financeiro(request:Request):
+    try: 
+        return await request_adapter(request,list_financeiro_composer())
+    except Exception as error:
+        return handle_errors(error)
+@financeiro_routes.delete('/{id}')
+async def delete_financeiro(id:int, request:Request):
+    try:
+        await delete_financeiro_validator(id)
+        return await request_adapter(request,delete_financeiro_composer())
+    except Exception as error:
+        return handle_errors(error)

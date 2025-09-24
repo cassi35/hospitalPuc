@@ -6,6 +6,7 @@ from src.errors.types.http_not_found import HttpNotFoundError
 from src.errors.types.http_unprocessable_entity import HttpUnprocessableEntityError
 from src.errors.types.validation_error import ValidationError
 from src.errors.types.http_internal_serverEerror import HttpInternalServerError
+import logging
 def handle_errors(error:Exception)-> HTTPResponse:
     if isinstance(error,(
         HttpBadRequestError,
@@ -24,13 +25,15 @@ def handle_errors(error:Exception)-> HTTPResponse:
                     "message":error.message
                 }
             ]}
+            
         )
     return HTTPResponse(
+        
         status_code=500,
         body={"error":[
             {
-                "title":"Internal Server Error",
-                "message":"An internal server error occurred"
+                "title":str(error.__class__.__name__),
+                "message": str(error)
             }
         ]}
     )

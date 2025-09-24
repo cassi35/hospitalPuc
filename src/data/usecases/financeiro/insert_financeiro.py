@@ -25,7 +25,7 @@ class FinanceiroInsertUseCase(FinanceiroInsertInterface):
             financeiro.paciente_id,
             financeiro.convenio_id,
             financeiro.valor,
-            financeiro.data_emisao,
+            financeiro.data_emissao,
             financeiro.data_vencimento,
             financeiro.status_pagamento
         )
@@ -51,11 +51,11 @@ class FinanceiroInsertUseCase(FinanceiroInsertInterface):
         except Exception:
             raise HttpBadRequestError("valor inválido")
         # datas
-        if not financeiro.data_emisao:
-            raise HttpBadRequestError("data_emisao é obrigatória")
+        if not financeiro.data_emissao:
+            raise HttpBadRequestError("data_emissao é obrigatória")
         if not financeiro.data_vencimento:
             raise HttpBadRequestError("data_vencimento é obrigatória")
-        emis = self.__parse_date(financeiro.data_emisao, "data_emisao")
+        emis = self.__parse_date(financeiro.data_emissao, "data_emisao")
         venc = self.__parse_date(financeiro.data_vencimento, "data_vencimento")
         if emis > datetime.now().date():
             raise HttpBadRequestError("data_emisao não pode ser futura")
@@ -79,7 +79,7 @@ class FinanceiroInsertUseCase(FinanceiroInsertInterface):
                 "paciente_id": financeiro.paciente_id,
                 "convenio_id": financeiro.convenio_id,
                 "valor": financeiro.valor,
-                "data_emisao": str(financeiro.data_emisao),
+                "data_emisao": str(financeiro.data_emissao),
                 "data_vencimento": str(financeiro.data_vencimento),
                 "status_pagamento": financeiro.status_pagamento
             }

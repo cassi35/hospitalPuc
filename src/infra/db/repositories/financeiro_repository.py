@@ -13,7 +13,7 @@ class FinanceiroRepository(FinanceiroRepositoryInterface):
                     paciente_id=paciente_id,
                     convenio_id=convenio_id,
                     valor=valor,
-                    data_emisao=data_emisao,
+                    data_emissao=data_emisao,
                     data_vencimento=data_vencimento,
                     status_pagamento=status_pagamento
                 )
@@ -31,7 +31,7 @@ class FinanceiroRepository(FinanceiroRepositoryInterface):
                     financeiro.paciente_id = paciente_id
                     financeiro.convenio_id = convenio_id
                     financeiro.valor = valor
-                    financeiro.data_emisao = data_emisao
+                    financeiro.data_emissao = data_emisao
                     financeiro.data_vencimento = data_vencimento
                     financeiro.status_pagamento = status_pagamento
                     database.session.commit()
@@ -62,7 +62,7 @@ class FinanceiroRepository(FinanceiroRepositoryInterface):
                         paciente_id=financeiro.paciente_id,
                         convenio_id=financeiro.convenio_id,
                         valor=financeiro.valor,
-                        data_emisao=financeiro.data_emisao,
+                        data_emissao=financeiro.data_emissao,
                         data_vencimento=financeiro.data_vencimento,
                         status_pagamento=financeiro.status_pagamento
                     )
@@ -81,7 +81,7 @@ class FinanceiroRepository(FinanceiroRepositoryInterface):
                         paciente_id=financeiro.paciente_id,
                         convenio_id=financeiro.convenio_id,
                         valor=financeiro.valor,
-                        data_emisao=financeiro.data_emisao,
+                        data_emissao=financeiro.data_emissao,
                         data_vencimento=financeiro.data_vencimento,
                         status_pagamento=financeiro.status_pagamento
                     ) for financeiro in financeiros
