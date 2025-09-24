@@ -27,13 +27,6 @@ class MedicamentoUpdateUseCase(MedicamentoInsertInterface):
             raise HttpBadRequestError("Nome do medicamento é obrigatório")
         if len(medicamento.nome) > 30:
             raise HttpBadRequestError("Nome do medicamento deve ter no máximo 30 caracteres")
-        
-        # Verificar se nome é único
-        existing_medicamento = self.medicamento_repository.findByNome( nome=medicamento.nome)
-        
-        if existing_medicamento:
-            raise HttpBadRequestError("Já existe um medicamento com este nome")
-
         # Validar descrição (opcional, mas se informada deve ter no máximo 30 chars)
         if medicamento.descricao and len(medicamento.descricao) > 30:
             raise HttpBadRequestError("Descrição deve ter no máximo 30 caracteres")

@@ -1,5 +1,3 @@
-
-
 from cerberus import Validator
 from src.errors.types.http_unprocessable_entity import HttpUnprocessableEntityError
 async def insert_leito_validator(body:dict) -> None:
