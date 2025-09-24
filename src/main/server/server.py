@@ -13,6 +13,8 @@ from src.main.routes.iinternacao_routes import internacao_router
 from src.main.routes.leito_routes import leito_router   
 from src.main.routes.medicamento_routes import medicamento_router
 from src.main.routes.medico_routes import medico_router
+from src.main.routes.paciente_routes import paciente_router
+from src.main.routes.prescricao_routes import prescricao_router
 description = """ 
 this is a api for hospital puc system.
 """
@@ -43,3 +45,5 @@ app.include_router(internacao_router,prefix=f'/{version}/internacao',tags=["inte
 app.include_router(leito_router,prefix=f'/{version}/leito',tags=["leito"])
 app.include_router(medicamento_router,prefix=f'/{version}/medicamento',tags=["medicamento"])
 app.include_router(medico_router,prefix=f'/{version}/medico',tags=["medico"])
+app.include_router(paciente_router,prefix=f'/{version}/paciente',tags=["paciente"])
+app.include_router(prescricao_router,prefix=f'/{version}/prescricao',tags=["prescricao"])
