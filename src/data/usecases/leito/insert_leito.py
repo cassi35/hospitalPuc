@@ -16,7 +16,7 @@ class LeitoInsertUseCase(LeitoInsertInterface):
         response = self.__format_response(leito=leito)
         return response
     def __validate_informations(self,leito:Leito)-> None:
-        if leito.numero_leito < 0 or leito.numero_leito > 30:
+        if len(leito.numero_leito) < 0 or len(leito.numero_leito) > 30:
             raise HttpBadRequestError("Número do leito inválido. Deve estar entre 0 e 30.")
         setor = self.setor_repository.findById(id=leito.setor_id)
         if not setor:

@@ -8,6 +8,9 @@ from src.main.routes.consulta_routes import consulta_router
 from src.main.routes.exame_routes import exame_router
 from src.main.routes.especialidade_routes import especialidade_router
 from src.main.routes.financeiro_routes import financeiro_routes
+from src.main.routes.funcionario_routes import funcionario_router
+from src.main.routes.iinternacao_routes import internacao_router
+from src.main.routes.leito_routes import leito_router   
 description = """ 
 this is a api for hospital puc system.
 """
@@ -33,3 +36,6 @@ app.include_router(consulta_router,prefix=f'/{version}/consulta',tags=["consulta
 app.include_router(especialidade_router,prefix=f'/{version}/especialidade',tags=["especialidade"])
 app.include_router(exame_router,prefix=f'/{version}/exame',tags=["exame"])
 app.include_router(financeiro_routes,prefix=f'/{version}/financeiro',tags=["financeiro"])
+app.include_router(funcionario_router,prefix=f'/{version}/funcionario',tags=["funcionario"])
+app.include_router(internacao_router,prefix=f'/{version}/internacao',tags=["internacao"])
+app.include_router(leito_router,prefix=f'/{version}/leito',tags=["leito"])
