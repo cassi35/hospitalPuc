@@ -19,7 +19,7 @@ class InternacaoListUseCase(InternacaoListInterface):
                 "paciente_id": internacao.paciente_id,
                 "medico_id": internacao.medico_id,
                 "leito_id": internacao.leito_id,
-                "data_entrada": str(internacao.data_entrada) if internacao.data_entrada else None,
+                "data_entrada": internacao.data_entrada.isoformat() if internacao.data_entrada else None,
                 "status": internacao.status
             }
         }

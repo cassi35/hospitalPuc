@@ -11,7 +11,7 @@ async def insert_exame_validator(body:dict) -> None:
        "paciente_id":{"type":"integer","required":True,"empty":False,"min":1},
        "medico_id":{"type":"integer","required":True,"empty":False,"min":1},
        "resultado":{"type":"string","required":True,"empty":False},
-       "andamento":{"type":"string","required":True,"empty":False,"allowed":["solicitado","em andamento","concluído"]}
+       "status":{"type":"string","required":True,"empty":False,"allowed":["solicitado","em andamento","concluído"]}
     })
     if not body_validator.validate(body):
         raise HttpUnprocessableEntityError(body_validator.errors)

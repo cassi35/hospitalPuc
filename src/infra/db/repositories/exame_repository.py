@@ -5,8 +5,9 @@ from src.domain.models.exame_model import Exame as ExameDomain
 from src.infra.db.entities.exame import Exame as ExameEntity
 
 class ExameRepository(ExameRepositoryInterface):
-    
-    def create(self, tipo_exame: str, data_exame: str, paciente_id: int, medico_id: int, resultado: str, status: str) -> None:
+
+    @classmethod
+    def create(cls, tipo_exame: str, data_exame: str, paciente_id: int, medico_id: int, resultado: str, status: str) -> None:
         with BDConnectionHandler() as database:
             try:
                 exame = ExameEntity(
@@ -22,8 +23,9 @@ class ExameRepository(ExameRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    
-    def update(self, id: int, tipo_exame: str, data_exame: str, paciente_id: int, medico_id: int, resultado: str, status: str) -> None:
+
+    @classmethod
+    def update(cls, id: int, tipo_exame: str, data_exame: str, paciente_id: int, medico_id: int, resultado: str, status: str) -> None:
         with BDConnectionHandler() as database:
             try:
                 exame = database.session.query(ExameEntity).filter_by(id=id).first()
@@ -38,8 +40,9 @@ class ExameRepository(ExameRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    
-    def delete(self, id: int) -> bool:
+
+    @classmethod
+    def delete(cls, id: int) -> bool:
         with BDConnectionHandler() as database:
             try:
                 exame = database.session.query(ExameEntity).filter_by(id=id).first()
@@ -51,8 +54,9 @@ class ExameRepository(ExameRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    
-    def findById(self, id: int) -> ExameDomain:
+
+    @classmethod
+    def findById(cls, id: int) -> ExameDomain:
         with BDConnectionHandler() as database:
             try:
                 exame = database.session.query(ExameEntity).filter_by(id=id).first()
@@ -70,8 +74,9 @@ class ExameRepository(ExameRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    
-    def findAll(self) -> List[ExameDomain]:
+
+    @classmethod
+    def findAll(cls) -> List[ExameDomain]:
         with BDConnectionHandler() as database:
             try:
                 exames = database.session.query(ExameEntity).all()

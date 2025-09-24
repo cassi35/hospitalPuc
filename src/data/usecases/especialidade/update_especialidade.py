@@ -29,7 +29,7 @@ class EspecialidadeUpdateUseCase(EspecialidadeUpdateInterface):
             raise HttpBadRequestError("id invalido")
         if not self.especialidade_repository.findById(id=especialidade_id):
             raise HttpBadRequestError("especialidade nao encontrada")
-        if not nome or nome.strip() == "" or  ( len(nome) > 50 or len(nome) < 3):
+        if not nome or nome.strip() == "" or  ( len(nome) > 50 or len(nome) < 3) or nome.isalpha() != True:
             raise  HttpBadRequestError("nome invalido")
         if not descricao or descricao.strip() == "" or (len(descricao) > 200 or len(descricao) < 5):
             raise HttpBadRequestError("descricao invalido")

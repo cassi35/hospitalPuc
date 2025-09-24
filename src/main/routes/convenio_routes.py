@@ -1,5 +1,4 @@
 from fastapi import APIRouter,Request
-from fastapi import Depends,status
 from src.main.adapter.request_adapter import request_adapter
 from src.main.composers.convenio.insert_convenio_composer import insert_convenio_composer
 from src.main.composers.convenio.update_convenio_composer import update_convenio_composer

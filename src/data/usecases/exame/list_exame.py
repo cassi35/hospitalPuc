@@ -14,14 +14,14 @@ class ExameListUseCase(ExameListInterface):
     def __format_response(self, exame: Exame) -> Dict:
         response = {
             "type": "Exame",
-            "id": getattr(exame, "id", None),
+            "id": exame.id,
             "attributes": {
-                "tipo_exame": getattr(exame, "tipo_exame", None),
-                "data_exame": getattr(exame, "data_exame", None),
-                "paciente_id": getattr(exame, "paciente_id", None),
-                "medico_id": getattr(exame, "medico_id", None),
-                "resultado": getattr(exame, "resultado", None),
-                "status": getattr(exame, "status", None)
+                "tipo_exame": exame.tipo_exame,
+                "data_exame": exame.data_exame.isoformat() if exame.data_exame else None,
+                "paciente_id": exame.paciente_id,
+                "medico_id": exame.medico_id,
+                "resultado": exame.resultado,
+                "status": exame.status
             }
         }
         return response

@@ -14,14 +14,14 @@ class FinanceiroListUseCase(FinanceiroListInterface):
     def __format_response(self, financeiro: Financeiro) -> Dict:
         response = {
             "type": "Financeiro",
-            "id": getattr(financeiro, "id", None),
+            "id": financeiro.id,
             "attributes": {
-                "paciente_id": getattr(financeiro, "paciente_id", None),
-                "convenio_id": getattr(financeiro, "convenio_id", None),
-                "valor": getattr(financeiro, "valor", None),
-                "data_emisao": getattr(financeiro, "data_emisao", None),
-                "data_vencimento": getattr(financeiro, "data_vencimento", None),
-                "status_pagamento": getattr(financeiro, "status_pagamento", None)
+                "paciente_id": financeiro.paciente_id,
+                "convenio_id": financeiro.convenio_id,
+                "valor": financeiro.valor,
+                "data_emisao": financeiro.data_emisao.isoformat() if financeiro.data_emisao else None,
+                "data_vencimento": financeiro.data_vencimento.isoformat() if financeiro.data_vencimento else None,
+                "status_pagamento": financeiro.status_pagamento
             }
         }
         return response

@@ -15,15 +15,15 @@ class FuncionarioListUseCase(FuncionarioListInterface):
     def __format_response(self, funcionario: Funcionario) -> Dict:
         response = {
             "type": "Funcionario",
-            "id": getattr(funcionario, "id", None),
+            "id": funcionario.id,
             "attributes": {
-                "nome": getattr(funcionario, "nome", None),
-                "cpf": getattr(funcionario, "cpf", None),
-                "cargo": getattr(funcionario, "cargo", None),
-                "setor_id": getattr(funcionario, "setor_id", None),
-                "telefone": getattr(funcionario, "telefone", None),
-                "email": getattr(funcionario, "email", None),
-                "data_contratacao": getattr(funcionario, "data_contratacao", None)
+                "nome": funcionario.nome,
+                "cpf": funcionario.cpf,
+                "cargo": funcionario.cargo,
+                "setor_id": funcionario.setor_id,
+                "telefone": funcionario.telefone,
+                "email": funcionario.email,
+                "data_contratacao": funcionario.data_contratacao.isoformat() if funcionario.data_contratacao else None
             }
         }
         return response
