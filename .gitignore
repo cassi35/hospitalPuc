@@ -1,0 +1,5 @@
+# Ignorar arquivos de variáveis de ambiente
+src/.env
+*.env.local
+*.env.backup
+
