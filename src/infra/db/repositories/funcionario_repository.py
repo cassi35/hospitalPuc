@@ -93,3 +93,12 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
+        def findByEmail(self, email:str)-> str:
+            try:
+                with BDConnectionHandler() as database:
+                    funcionario = database.session.query(FuncionarioEntity).filter_by(email=email).first()
+                    if funcionario:
+                        return funcionario.email
+                    return None
+            except Exception as e:
+                raise e

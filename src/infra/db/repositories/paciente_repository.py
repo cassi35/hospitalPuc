@@ -97,3 +97,12 @@ class PacienteRepository(PacienteRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
+    def findByEmail(self, email:str)-> str:
+        try:
+            with BDConnectionHandler() as database:
+                paciente = database.session.query(PacienteEntity).filter_by(email=email).first()
+                if paciente:
+                    return paciente.email
+                return None
+        except Exception as e:
+            raise e

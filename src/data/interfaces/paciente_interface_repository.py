@@ -3,13 +3,13 @@ from typing import List
 from src.domain.models.paciente_model import Paciente
 class PacienteRepositoryInterface(ABC):
         @abstractmethod
-        def insert_paciente(self,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,alergia:str,contato_emergencia:str,endereco_id:str,convenio_id:str) -> None:
+        def insert_paciente(self,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,alergia:str,contato_emergencia:str,email:str,endereco_id:str,convenio_id:str) -> None:
                 pass
         @abstractmethod
         def select_paciente(self, id: int) -> Paciente:
                 pass
         @abstractmethod
-        def update_paciente(self, id: int, nome: str, cpf: str, data_nascimento: str, sexo: str, telefone: str, alergia: str, contato_emergencia: str, endereco_id: int, convenio_id: int) -> None:
+        def update_paciente(self, id: int, nome: str, cpf: str, data_nascimento: str, sexo: str, telefone: str, alergia: str, email:str, contato_emergencia: str, endereco_id: int, convenio_id: int) -> None:
                 pass
         @abstractmethod
         def delete_paciente(self, id: int) -> bool:
@@ -17,3 +17,6 @@ class PacienteRepositoryInterface(ABC):
         @abstractmethod
         def list_pacientes(self) -> List[Paciente]:
                 pass
+        @abstractmethod
+        def findByEmail(self,email:str)-> str:
+                pass 

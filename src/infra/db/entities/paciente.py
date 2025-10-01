@@ -13,6 +13,7 @@ class Paciente(Base):
     telefone = Column(CHAR(11),nullable=True)
     alergia = Column(Text,nullable=True)
     contato_emergencia = Column(CHAR(11),nullable=True)
+    email = Column(String(30),nullable=True)
     endereco_id = Column(Integer,ForeignKey('Endereco.id'),nullable=True)
     convenio_id = Column(Integer,ForeignKey('convenio.id'),nullable=True)
     endereco = relationship(Endereco)

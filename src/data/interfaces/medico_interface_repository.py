@@ -27,3 +27,4 @@ class MedicoRepositoryInterface(ABC):
     @abstractmethod
     def findByCpf(self, cpf: str) -> Medico:
         pass
+    def findByEmail(self,email:str)-> str:pass

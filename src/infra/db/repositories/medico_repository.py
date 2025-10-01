@@ -108,3 +108,12 @@ class MedicoRepository(MedicoRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
+    def findByEmail(self, email:str)-> str:
+        try:
+            with BDConnectionHandler() as database:
+                medico = database.session.query(MedicoEntity).filter_by(email=email).first()
+                if medico:
+                    return medico.email
+                return None
+        except Exception as e:
+            raise e

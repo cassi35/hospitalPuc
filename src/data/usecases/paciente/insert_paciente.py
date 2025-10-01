@@ -33,7 +33,8 @@ class PacienteInsertUseCase(PacienteInsertInterface):
             contato_emergencia=paciente.contato_emergencia,
             alergia=paciente.alergia,
             endereco_id=paciente.endereco_id,
-            convenio_id=paciente.convenio_id
+            convenio_id=paciente.convenio_id,
+            email=paciente.email
         )
         response = self.__format_response(
             nome=paciente.nome,
@@ -47,7 +48,7 @@ class PacienteInsertUseCase(PacienteInsertInterface):
             convenio_id=paciente.convenio_id
         )
         return response
-    def __validade_informations(self,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,contato_emergencia:str,alergia:str,endereco_id:int,convenio_id:int)-> None:
+    def __validade_informations(self,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,contato_emergencia:str,alergia:str,email:str,endereco_id:int,convenio_id:int)-> None:
         if not nome or nome.strip() == "" or len(nome) < 3 or len(nome) > 20:
             raise HttpBadRequestError("nome invalido")
         if not cpf or cpf.strip() == "" or len(cpf) != 11 or not cpf.isdigit():
@@ -60,7 +61,11 @@ class PacienteInsertUseCase(PacienteInsertInterface):
             raise HttpBadRequestError("telefone invalido")
         if not contato_emergencia or len(contato_emergencia) != 11 or not contato_emergencia.isdigit():
             raise HttpBadRequestError("contato emergencia invalido")
-
+        if not email or email.strip() == "" or len(email) < 10 or len(email) > 30 or re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',email) is None:
+            raise HttpBadRequestError("email invalido")
+        paciente_email = self.paciente_repository.findByEmail(email=email)
+        if paciente_email:
+            raise HttpBadRequestError("email ja cadastrado")
         if len(alergia) > 200:
             raise HttpBadRequestError("alergia invalida")
         endereco = self.endereco_repository.select_endereco(id=endereco_id)

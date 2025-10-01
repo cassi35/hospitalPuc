@@ -9,8 +9,8 @@ from src.infra.email.templates.send_welcome import send_welcome_email_template
 from src.infra.email.templates.send_reset_password import send_reset_password_email_template
 from src.infra.email.email_config import email_settings
 from src.domain.models.user_email import UserEmail
-
-class SMTPEmailService:
+from src.data.interfaces.stmp_service_interface import SMTPServiceInterface 
+class SMTPEmailService(SMTPServiceInterface):
     def __init__(self):
         self.config = email_settings
         self.server = SMTP(self.config.MAIL_SERVER,self.config.MAIL_PORT)

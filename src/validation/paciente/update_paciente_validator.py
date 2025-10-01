@@ -12,6 +12,7 @@ async def update_paciente_validator(body:dict) -> None:
        "sexo":{"type":"string","required":True,"empty":False,"allowed":["m","f"]},
         "telefone":{"type":"string","required":True,"empty":False},
         "contato_emergencia":{"type":"string","required":True,"empty":False},
+        "email":{"type":"string","required":True,"empty":False},
         "alergia":{"type":"string","required":True,"empty":False},
         "convenio_id":{"type":"integer","required":True,"empty":False},
         "endereco_id":{"type":"integer","required":True,"empty":False}
