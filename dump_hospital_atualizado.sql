@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `HospitalSaoLucas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `HospitalSaoLucas`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: HospitalSaoLucas
@@ -39,7 +37,7 @@ CREATE TABLE `Consulta` (
   CONSTRAINT `fk_especidade` FOREIGN KEY (`especialidade_id`) REFERENCES `especialidade` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_medico` FOREIGN KEY (`medico_id`) REFERENCES `Medico` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `Paciente` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +55,7 @@ CREATE TABLE `Endereco` (
   `estado` varchar(30) DEFAULT NULL,
   `cep` char(8) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +78,7 @@ CREATE TABLE `Exame` (
   KEY `fk_exame_medico` (`medico_id`),
   CONSTRAINT `fk_exame_medico` FOREIGN KEY (`medico_id`) REFERENCES `Medico` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_exame_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `Paciente` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +99,7 @@ CREATE TABLE `Medico` (
   PRIMARY KEY (`id`),
   KEY `fk_especialidade` (`especialidade_id`),
   CONSTRAINT `fk_especialidade` FOREIGN KEY (`especialidade_id`) REFERENCES `especialidade` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,12 +120,13 @@ CREATE TABLE `Paciente` (
   `alergia` tinytext DEFAULT NULL,
   `endereco_id` int(11) DEFAULT NULL,
   `convenio_id` int(11) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_endereco` (`endereco_id`),
   KEY `fk_convenio` (`convenio_id`),
   CONSTRAINT `fk_convenio` FOREIGN KEY (`convenio_id`) REFERENCES `convenio` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_endereco` FOREIGN KEY (`endereco_id`) REFERENCES `Endereco` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +141,7 @@ CREATE TABLE `convenio` (
   `nome` varchar(30) DEFAULT NULL,
   `tipo_plano` enum('Individual','Familiar','Empresarial') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +156,7 @@ CREATE TABLE `especialidade` (
   `nome` varchar(50) DEFAULT NULL,
   `descricao` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +171,7 @@ CREATE TABLE `financeiro` (
   `paciente_id` int(11) DEFAULT NULL,
   `convenio_id` int(11) DEFAULT NULL,
   `valor` float DEFAULT NULL,
-  `data_emisao` date DEFAULT NULL,
+  `data_emissao` date DEFAULT NULL,
   `data_vencimento` date DEFAULT NULL,
   `status_pagamento` enum('pago','pendente','cancelado') DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -180,7 +179,7 @@ CREATE TABLE `financeiro` (
   KEY `fk_financeiro_convenio` (`convenio_id`),
   CONSTRAINT `fk_financeiro_convenio` FOREIGN KEY (`convenio_id`) REFERENCES `convenio` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_financeiro_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `Paciente` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +201,7 @@ CREATE TABLE `funcionario` (
   PRIMARY KEY (`id`),
   KEY `fk_funcionario_setor` (`setor_id`),
   CONSTRAINT `fk_funcionario_setor` FOREIGN KEY (`setor_id`) REFERENCES `setor` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +225,7 @@ CREATE TABLE `internacao` (
   CONSTRAINT `fk_internacao_leito` FOREIGN KEY (`leito_id`) REFERENCES `leito` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_internacao_medico` FOREIGN KEY (`medico_id`) REFERENCES `Medico` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_internacao_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `Paciente` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +244,7 @@ CREATE TABLE `leito` (
   PRIMARY KEY (`id`),
   KEY `fk_setor` (`setor_id`),
   CONSTRAINT `fk_setor` FOREIGN KEY (`setor_id`) REFERENCES `setor` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +262,7 @@ CREATE TABLE `medicamento` (
   `validade` date DEFAULT NULL,
   `quantidade_estoque` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +287,7 @@ CREATE TABLE `prescricao` (
   CONSTRAINT `fk_precricao_medicamento` FOREIGN KEY (`medicamento_id`) REFERENCES `medicamento` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_precricao_medico` FOREIGN KEY (`medico_id`) REFERENCES `Medico` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_precricao_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `Paciente` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,8 +304,16 @@ CREATE TABLE `setor` (
   `capacidade` int(11) DEFAULT NULL,
   `responsavel` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping events for database 'HospitalSaoLucas'
+--
+
+--
+-- Dumping routines for database 'HospitalSaoLucas'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -317,4 +324,4 @@ CREATE TABLE `setor` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-26 16:39:07
+-- Dump completed on 2025-10-01 20:08:15
