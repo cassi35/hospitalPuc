@@ -7,3 +7,10 @@ pip install pytest
  usecase do domain sao apenas contratos (interfaces)
  regras de negocio o que deveria fazer nao implenta nada 
  ja usecase na data sao as regras concretas definido no domain 
+
+ --------------
+ Repository é para persistir ou recuperar dados de um armazenamento
+  (banco, cache, arquivos, etc).
+  O que você faz aqui é interagir com um serviço externo (SMTP).
+
+  a validacao do models tem que 
