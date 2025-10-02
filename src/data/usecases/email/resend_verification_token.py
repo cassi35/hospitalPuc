@@ -1,8 +1,8 @@
 from src.data.interfaces.stmp_service_interface import SMTPServiceInterface
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.data.interfaces.stmp_service_interface import SMTPServiceInterface
-from src.domain.usecases.email.resend_verification_token import SendVerificationTokenUsecase as SendVerificationTokenUsecaseInterface
-class SendVerificationTokenUsecase(SendVerificationTokenUsecaseInterface):
+from src.domain.usecases.email.resend_verification_token import ResendVerificationTokenUsecase as SendVerificationTokenUsecaseInterface
+class ResendVerificationTokenUsecase(SendVerificationTokenUsecaseInterface):
     def __init__(self,email_service:SMTPServiceInterface):
         self.email_service = email_service
     def send_email(self, token:int, email:str)-> dict:
