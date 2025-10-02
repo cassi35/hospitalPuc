@@ -1,508 +1,292 @@
 # Hospital PUC System
 
-A modular hospital management system implementing Clean Architecture, Clean Code and design patterns to support core clinical and administrative workflows (patients, doctors, specialties, consultations, exams, prescriptions, hospitalizations, beds, medications, insurance plans, billing).
+Backend modular para gestão hospitalar aplicando Clean Architecture, separação clara de camadas, repositórios, casos de uso e pontos de extensão (e-mail, automação, analytics).
 
 ---
 
-## 🧠 Problem Overview
+## 1. Objetivo Geral
+Fornecer API coerente para operações clínicas, administrativas, financeiras, monitoramento operacional e geração de indicadores analíticos.
 
-Context  
-Hospitals handle many interconnected entities (patients, doctors, appointments, billing, beds). Legacy or monolithic systems are hard to evolve and test.
-
-Real Need  
-Provide a maintainable, testable, extensible backend that separates business rules from infrastructure concerns, enabling safe evolution (new modules, integrations, notifications).
-
-Target Stakeholders  
-- Administrative staff (billing, insurance, sector management)  
-- Medical staff (doctors, prescriptions, exams)  
-- Nursing staff (hospitalization, bed allocation)  
-- IT / Dev teams (extensibility & reliability)  
-- Management (reporting & data consistency)  
+## 2. Escopo Macro
+- Cadastros: pacientes, médicos, convênios, setores, leitos, medicamentos, especialidades
+- Operações: consultas, internações, prescrições, exames, faturamento
+- Notificações: e-mail (port SMTP)
+- Analytics e Automação: relatórios, métricas assistenciais, eventos operacionais
 
 ---
 
-## 🎯 System Objectives
+## 3. Requisitos Funcionais
 
-Primary Objective  
-Provide a cohesive backend API for complete hospital operational management.
+| Código | Requisito | Descrição Resumida |
+|--------|-----------|--------------------|
+| RF01 | Cadastro Paciente | CRUD completo + vínculo a endereços |
+| RF02 | Cadastro Médico | CRUD + vínculo especialidades |
+| RF03 | Especialidades | CRUD |
+| RF04 | Agendamento Consulta | Valida data >= hoje; médico & paciente existem |
+| RF05 | Exames | Registro e listagem por paciente/médico |
+| RF06 | Prescrições | Vincula medicamentos, paciente, médico |
+| RF07 | Medicamentos | CRUD catálogo |
+| RF08 | Internações | Abrir, atualizar, dar alta |
+| RF09 | Leitos | Controle status (ocupado / livre) |
+| RF10 | Setores | CRUD setorial |
+| RF11 | Convênios | CRUD planos |
+| RF12 | Financeiro | Lançamentos e atualização validada |
+| RF13 | Endereço | Associação a paciente |
+| RF14 | Validação | Schemas (Cerberus) por operação |
+| RF15 | Respostas de Erro | Envelope padronizado |
+| RF16 | Notificação E-mail | Envio (boas-vindas, token, reset, reenvio) |
+| RF17 | Relatórios Ocupação | Taxa de ocupação por setor / dia / semana |
+| RF18 | Estatísticas Atendimentos | Agrupado por médico / especialidade / período |
+| RF19 | Análise Financeira | Faturamento por convênio, inadimplência, ticket médio |
+| RF20 | Tempo Médio Internação | Média (alta - admissão) por diagnóstico / período |
+| RF21 | Indicadores Readmissão | Pacientes que retornam em < X dias |
+| RF22 | Lembrete Consulta (Automação) | Gatilho e-mail/webhook X horas antes |
+| RF23 | Alerta Leito Disponível (Evento) | Emissão de evento quando leito libera |
+| RF24 | Gatilho Faturamento Automático | Ao dar alta → gerar lançamento financeiro |
+| RF25 | Relatório Diário Automático | Gera PDF/Excel e envia para gestão |
+| RF26 | Monitoramento Exceções | Log + alerta em dados inconsistentes |
 
-Secondary Objectives  
-- Enforce domain rules consistently  
-- Reduce coupling via explicit boundaries  
-- Enable automated tests with repository spies  
-- Allow future integrations (email, messaging, analytics)  
-
----
-
-## ✅ Functional Requirements
-
-| Code  | Requirement                     | Description |
-|-------|---------------------------------|-------------|
-| RF01  | Patient Registration            | Register, list, update, delete patients. |
-| RF02  | Doctor Registration             | Manage doctors and link to specialties. |
-| RF03  | Specialty Management            | CRUD of medical specialties. |
-| RF04  | Consultation Scheduling         | Create consultation with future-or-today date, validate participants. |
-| RF05  | Examination Management          | Register and list exams tied to patient & doctor. |
-| RF06  | Prescription Management         | Link medications, patient, doctor. |
-| RF07  | Medication Catalog              | CRUD medications. |
-| RF08  | Hospitalization (Internação)    | Register, update, discharge hospitalization records. |
-| RF09  | Bed (Leito) Management          | Track bed type, status (available/occupied). |
-| RF10  | Sector Management               | Manage hospital sectors. |
-| RF11  | Insurance (Convênio)            | CRUD of insurance plans. |
-| RF12  | Billing (Financeiro)            | Insert & update financial records with validation. |
-| RF13  | Address Linking                 | Associate patient addresses. |
-| RF14  | Validation Layer                | Reject malformed inputs (Cerberus validators). |
-| RF15  | Consistent Error Responses      | Standard HTTP error envelope. |
-| RF16  | Future Email Notifications      | Pluggable email sender port (planned). |
-
----
-
-## 🔐 Non-Functional Requirements
-
-| Code  | Category         | Requirement |
-|-------|------------------|-------------|
-| NFR01 | Architecture     | Clean Architecture layering. |
-| NFR02 | Testability      | Use repository spies for unit tests. |
-| NFR03 | Maintainability  | Separation of domain vs infra code. |
-| NFR04 | Extensibility    | New modules via composer pattern. |
-| NFR05 | Consistency      | Uniform HTTP envelope & validators. |
-| NFR06 | Observability    | Central error handler + console traces. |
-| NFR07 | Security (future)| Add authentication & RBAC layer. |
-| NFR08 | Portability      | Environment via `.env` (not committed). |
-| NFR09 | Data Integrity   | Enforce foreign keys & domain checks. |
+### 3.1 Automação / Eventos (RF22–RF26)
+| Código | Automação | Ação Técnica |
+|--------|-----------|--------------|
+| RF22 | Lembrete Consulta | Job scheduler (cron/async task) consulta consultas futuras |
+| RF23 | Alerta Leito Livre | Observer publica evento (ex: in-memory bus) |
+| RF24 | Faturamento Automático | Hook pós-alta gera registro financeiro |
+| RF25 | Relatório Diário | Task gera dataset + exportador (PDF/CSV) + envio |
+| RF26 | Monitor Exceções | Middleware / error handler → canal (log + futuro webhook) |
 
 ---
 
-## 🏛 Clean Architecture Layers
+## 4. Requisitos Não Funcionais
 
-- domain/  
-  - Entities (models) + use case interfaces  
-- data/  
-  - Use case implementations + repository interfaces  
-- infra/  
-  - DB repositories (SQLAlchemy / PyMySQL)  
-- presentation/  
-  - Controllers + HTTP request/response abstractions  
-- validation/  
-  - Cerberus schemas per operation  
-- main/  
-  - Routes, composers (dependency wiring), server bootstrap  
-- errors/  
-  - Typed HTTP/domain error classes & handler  
-
-Flow: Route → request_adapter → Controller → UseCase → Repository → DB → format response.
+| Código | Categoria | Descrição |
+|--------|-----------|-----------|
+| NFR01 | Arquitetura | Clean Architecture em camadas |
+| NFR02 | Testabilidade | Spies e mocks para casos de uso / repositórios |
+| NFR03 | Manutenibilidade | Domínio isolado de infra |
+| NFR04 | Extensibilidade | Composers para injeção |
+| NFR05 | Consistência | Envelope HTTP uniforme |
+| NFR06 | Observabilidade | Logs estruturados (extensível) |
+| NFR07 | Segurança (Futuro) | Autenticação + RBAC |
+| NFR08 | Portabilidade | Config via `.env` |
+| NFR09 | Integridade | FKs e validações domínio |
+| NFR10 | Evolução Analytics | Camada agregadora para métricas (futuro datamart) |
+| NFR11 | Isolamento SMTP | Porta (interface) desacoplada |
+| NFR12 | Automação Escalonável | Ponto para fila (ex: Celery / RQ) futuro |
 
 ---
 
-## 🧩 Design Patterns
+## 5. Arquitetura (Visão de Camadas)
 
-- Factory / Composer pattern (dependency injection per use case)
-- Repository pattern (abstract persistence)
-- Adapter pattern (request adapter decouples FastAPI)
-- DTO-like formatting in use cases (uniform response)
-- Strategy-ready (email sender interface)
-- Centralized error handling (single responsibility)
+Flow: Route → Adapter → Controller → UseCase (data) → Repository Interface → Infra Repo → DB  
+Componentes:
+- domain/: modelos + contratos de casos de uso
+- data/: implementações de casos de uso + interfaces de repositório/serviços
+- infra/: persistência (SQLAlchemy), SMTP adapter, templates
+- presentation/: controllers + http abstractions
+- main/: composers (wire), rotas, servidor
+- validation/: schemas de entrada
+- errors/: tipos + handler
 
----
-
-## 📂 Key Modules
-
-- Patients (paciente)
-- Doctors (medico)
-- Specialties (especialidade)
-- Consultations (consulta)
-- Exams (exame)
-- Prescriptions (prescricao)
-- Medications (medicamento)
-- Hospitalizations (internacao)
-- Beds (leito)
-- Sectors (setor)
-- Insurance (convenio)
-- Finance (financeiro)
-- Address (endereco)
+Automação & Analytics (novos):
+- Camada futura: analytics/ (agregações, queries especializadas)
+- Camada de eventos: event bus simples (futuro) p/ RF23/RF24
+- Scheduler externo (cron ou lib) para RF22/RF25
 
 ---
 
-## ⚙️ Error Handling
+## 6. Modelos de Dados (Exemplos Simples)
+- Paciente: id, nome, data_nascimento, convênio_id
+- Internação: id, paciente_id, leito_id, dt_admissao, dt_alta
+- Leito: id, setor_id, tipo, status
+- Financeiro: id, tipo, valor, convênio_id, status
+- Consulta: id, paciente_id, medico_id, dt_consulta
 
-Custom exceptions (e.g. HttpBadRequestError) bubble to `handle_errors`, which:
-- Maps known errors to specific status codes
-- Logs stack trace (console)
-- Returns JSON body:  
+(Métricas agregadas derivadas, não persistidas diretamente.)
+
+---
+
+## 7. Métricas / Analytics (RF17–RF21)
+
+| Métrica | Fonte | Método |
+|---------|-------|--------|
+| Ocupação (% ocupados / total) | leitos + internações ativas | Query agregada por período |
+| Atendimentos por especialidade | consultas + médicos | Group by especialidade_id |
+| Faturamento por convênio | financeiro | SUM(valor) FILTER(status='CONFIRMADO') |
+| Ticket médio | financeiro | SUM / COUNT lançamentos |
+| Tempo médio internação | internação | AVG(dt_alta - dt_admissao) |
+| Readmissão | internação | Self-join por paciente dentro janela X |
+
+---
+
+## 8. Automação (Execução Técnica)
+
+| Gatilho | Implementação Base |
+|---------|--------------------|
+| Scheduler (consultas futuras) | Função iterando repositório consultas |
+| Hook pós-alta | Método no usecase alta chama gerador financeiro |
+| Evento leito liberado | Update status → publica callback (extensível) |
+| Export diário | Query agregada + writer CSV/PDF + envio e-mail |
+| Monitor exceções | Decorator / handler central + log estruturado |
+
+---
+
+## 9. Tratamento de Erros
+Formato:
 ```
 {
   "error": [
-    {"title": "<ErrorType>", "message": "<details>"}
+    {"title": "HttpBadRequestError", "message": "Detalhe"}
   ]
 }
+```
+Mapeamento central em `errors/error_handler.py`.
+
+---
+
+## 10. Notificação / SMTP
+Interface: `SMTPServiceInterface`  
+Implementação: `SMTPEmailService`  
+Templates: `infra/email/templates/*`  
+Tipos: boas-vindas, token, reset, reenvio (RF16)  
+Extensível para: lembretes (RF22), relatórios (RF25).
+
+---
+
+## 11. Estrutura Simplificada
+
+```
+src/
+  domain/
+  data/
+  infra/
+  presentation/
+  main/
+  validation/
+  errors/
+  (futuro) analytics/
 ```
 
 ---
 
-## 🧪 Testing
+## 12. Ambiente (.env)
 
-- tests/src/infra/db/tests/* repository spies
-- Validate business logic without real DB
-- Future expansion: controller + use case integration tests
-
----
-
-## 🛠 Tech Stack
-
-- Python 3.12
-- FastAPI (routing layer abstraction)
-- SQLAlchemy Core/ORM + PyMySQL
-- Cerberus (validation)
-- Uvicorn (ASGI server)
-
----
-
-## 🔑 Environment (.env)
-
-Example file: `src/.env.example`  
 ```
 DB_USER=
 DB_PASSWORD=
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=
-```
-Local secret file: `src/.env` (ignored via .gitignore)
-
----
-
-## ▶️ Running
-
-```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp src/.env.example src/.env  # fill credentials
-python run.py
-```
-
-API base: `http://127.0.0.1:8000/v1/`
-
----
-
-## 🚦 Sample Endpoint Categories
-
-| Group          | Methods |
-|----------------|---------|
-| /paciente      | POST, GET, PATCH, DELETE |
-| /medico        | POST, GET, PATCH, DELETE |
-| /consulta      | POST |
-| /exame         | GET |
-| /financeiro    | POST, PATCH |
-| /leito         | POST, GET, PATCH, DELETE |
-| /internacao    | POST, GET, PATCH, DELETE |
-| ...            | (pattern consistent) |
-
----
-
-## 🔄 Request Lifecycle (Example Insert)
-
-POST /v1/medico  
-1. Route → validator  
-2. request_adapter builds HTTPRequest  
-3. Controller maps body -> domain model  
-4. Use case validates domain rules  
-5. Repository persists  
-6. Use case formats response → Controller → adapter returns JSON
-
----
-
-## 🧱 Consistency Rules (Examples)
-
-- Dates must follow YYYY-MM-DD
-- Future constraints (e.g. finance emission date not future)
-- Foreign keys validated via repository existence checks
-- Enumerations validated in validator layer (status, tipo, etc.)
-
----
-
-## 🌱 Future Improvements
-
-- Authentication & JWT (RF future)
-- Role-based access control
-- Caching layer (bed / availability snapshots)
-- Async DB and task queue for emails
-- Auditing / event sourcing
-- Metrics & structured logging
-
----
-
-## 📌 Traceability Note
-
-Functional requirement codes (RFxx) map to:
-- Validators (validation/*)
-- Use cases (data/usecases/*)
-- Controllers (presentation/controllers/*)
-- Routes (main/routes/*)  
-
----
-
-## 📄 License
-
-Internal / Educational (define if open-source later).
-
----
-
-## 🧾 Summary
-
-A structured, evolvable hospital backend applying Clean Architecture for separation of concerns, enabling safe scaling of features and maintenance.
-
-```// filepath: /home/cassiano/github_projetos/hospitalPuc/README.md
-# Hospital PUC System
-
-A modular hospital management system implementing Clean Architecture, Clean Code and design patterns to support core clinical and administrative workflows (patients, doctors, specialties, consultations, exams, prescriptions, hospitalizations, beds, medications, insurance plans, billing).
-
----
-
-## 🧠 Problem Overview
-
-Context  
-Hospitals handle many interconnected entities (patients, doctors, appointments, billing, beds). Legacy or monolithic systems are hard to evolve and test.
-
-Real Need  
-Provide a maintainable, testable, extensible backend that separates business rules from infrastructure concerns, enabling safe evolution (new modules, integrations, notifications).
-
-Target Stakeholders  
-- Administrative staff (billing, insurance, sector management)  
-- Medical staff (doctors, prescriptions, exams)  
-- Nursing staff (hospitalization, bed allocation)  
-- IT / Dev teams (extensibility & reliability)  
-- Management (reporting & data consistency)  
-
----
-
-## 🎯 System Objectives
-
-Primary Objective  
-Provide a cohesive backend API for complete hospital operational management.
-
-Secondary Objectives  
-- Enforce domain rules consistently  
-- Reduce coupling via explicit boundaries  
-- Enable automated tests with repository spies  
-- Allow future integrations (email, messaging, analytics)  
-
----
-
-## ✅ Functional Requirements
-
-| Code  | Requirement                     | Description |
-|-------|---------------------------------|-------------|
-| RF01  | Patient Registration            | Register, list, update, delete patients. |
-| RF02  | Doctor Registration             | Manage doctors and link to specialties. |
-| RF03  | Specialty Management            | CRUD of medical specialties. |
-| RF04  | Consultation Scheduling         | Create consultation with future-or-today date, validate participants. |
-| RF05  | Examination Management          | Register and list exams tied to patient & doctor. |
-| RF06  | Prescription Management         | Link medications, patient, doctor. |
-| RF07  | Medication Catalog              | CRUD medications. |
-| RF08  | Hospitalization (Internação)    | Register, update, discharge hospitalization records. |
-| RF09  | Bed (Leito) Management          | Track bed type, status (available/occupied). |
-| RF10  | Sector Management               | Manage hospital sectors. |
-| RF11  | Insurance (Convênio)            | CRUD of insurance plans. |
-| RF12  | Billing (Financeiro)            | Insert & update financial records with validation. |
-| RF13  | Address Linking                 | Associate patient addresses. |
-| RF14  | Validation Layer                | Reject malformed inputs (Cerberus validators). |
-| RF15  | Consistent Error Responses      | Standard HTTP error envelope. |
-| RF16  | Future Email Notifications      | Pluggable email sender port (planned). |
-
----
-
-## 🔐 Non-Functional Requirements
-
-| Code  | Category         | Requirement |
-|-------|------------------|-------------|
-| NFR01 | Architecture     | Clean Architecture layering. |
-| NFR02 | Testability      | Use repository spies for unit tests. |
-| NFR03 | Maintainability  | Separation of domain vs infra code. |
-| NFR04 | Extensibility    | New modules via composer pattern. |
-| NFR05 | Consistency      | Uniform HTTP envelope & validators. |
-| NFR06 | Observability    | Central error handler + console traces. |
-| NFR07 | Security (future)| Add authentication & RBAC layer. |
-| NFR08 | Portability      | Environment via `.env` (not committed). |
-| NFR09 | Data Integrity   | Enforce foreign keys & domain checks. |
-
----
-
-## 🏛 Clean Architecture Layers
-
-- domain/  
-  - Entities (models) + use case interfaces  
-- data/  
-  - Use case implementations + repository interfaces  
-- infra/  
-  - DB repositories (SQLAlchemy / PyMySQL)  
-- presentation/  
-  - Controllers + HTTP request/response abstractions  
-- validation/  
-  - Cerberus schemas per operation  
-- main/  
-  - Routes, composers (dependency wiring), server bootstrap  
-- errors/  
-  - Typed HTTP/domain error classes & handler  
-
-Flow: Route → request_adapter → Controller → UseCase → Repository → DB → format response.
-
----
-
-## 🧩 Design Patterns
-
-- Factory / Composer pattern (dependency injection per use case)
-- Repository pattern (abstract persistence)
-- Adapter pattern (request adapter decouples FastAPI)
-- DTO-like formatting in use cases (uniform response)
-- Strategy-ready (email sender interface)
-- Centralized error handling (single responsibility)
-
----
-
-## 📂 Key Modules
-
-- Patients (paciente)
-- Doctors (medico)
-- Specialties (especialidade)
-- Consultations (consulta)
-- Exams (exame)
-- Prescriptions (prescricao)
-- Medications (medicamento)
-- Hospitalizations (internacao)
-- Beds (leito)
-- Sectors (setor)
-- Insurance (convenio)
-- Finance (financeiro)
-- Address (endereco)
-
----
-
-## ⚙️ Error Handling
-
-Custom exceptions (e.g. HttpBadRequestError) bubble to `handle_errors`, which:
-- Maps known errors to specific status codes
-- Logs stack trace (console)
-- Returns JSON body:  
-```
-{
-  "error": [
-    {"title": "<ErrorType>", "message": "<details>"}
-  ]
-}
+MAIL_USERNAME=
+MAIL_PASS=
+MAIL_FROM=
+MAIL_FROM_NAME=Hospital
+MAIL_PORT=587
+MAIL_SERVER=smtp.gmail.com
 ```
 
 ---
 
-## 🧪 Testing
-
-- tests/src/infra/db/tests/* repository spies
-- Validate business logic without real DB
-- Future expansion: controller + use case integration tests
-
----
-
-## 🛠 Tech Stack
-
-- Python 3.12
-- FastAPI (routing layer abstraction)
-- SQLAlchemy Core/ORM + PyMySQL
-- Cerberus (validation)
-- Uvicorn (ASGI server)
-
----
-
-## 🔑 Environment (.env)
-
-Example file: `src/.env.example  
-```
-DB_USER=
-DB_PASSWORD=
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=
-```
-Local secret file: `src/.env` (ignored via .gitignore)
-
----
-
-## ▶️ Running
+## 13. Execução
 
 ```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-cp src/.env.example src/.env  # fill credentials
+cp src/.env.example src/.env
 python run.py
 ```
-
-API base: `http://127.0.0.1:8000/v1/`
-
----
-
-## 🚦 Sample Endpoint Categories
-
-| Group          | Methods |
-|----------------|---------|
-| /paciente      | POST, GET, PATCH, DELETE |
-| /medico        | POST, GET, PATCH, DELETE |
-| /consulta      | POST |
-| /exame         | GET |
-| /financeiro    | POST, PATCH |
-| /leito         | POST, GET, PATCH, DELETE |
-| /internacao    | POST, GET, PATCH, DELETE |
-| ...            | (pattern consistent) |
+API Base: http://127.0.0.1:8000/v1/
 
 ---
 
-## 🔄 Request Lifecycle (Example Insert)
+## 14. Testes
 
-POST /v1/medico  
-1. Route → validator  
-2. request_adapter builds HTTPRequest  
-3. Controller maps body -> domain model  
-4. Use case validates domain rules  
-5. Repository persists  
-6. Use case formats response → Controller → adapter returns JSON
-
----
-
-## 🧱 Consistency Rules (Examples)
-
-- Dates must follow YYYY-MM-DD
-- Future constraints (e.g. finance emission date not future)
-- Foreign keys validated via repository existence checks
-- Enumerations validated in validator layer (status, tipo, etc.)
+```
+pytest -q
+```
+- Repositórios: spies
+- Casos de uso: isolamento via interfaces
+- Futuro: métricas e automações mockadas
 
 ---
 
-## 🌱 Future Improvements
+## 15. Roadmap Incremental
 
-- Authentication & JWT (RF future)
-- Role-based access control
-- Caching layer (bed / availability snapshots)
-- Async DB and task queue for emails
-- Auditing / event sourcing
-- Metrics & structured logging
-
----
-
-## 📌 Traceability Note
-
-Functional requirement codes (RFxx) map to:
-- Validators (validation/*)
-- Use cases (data/usecases/*)
-- Controllers (presentation/controllers/*)
-- Routes (main/routes/*)  
+| Fase | Entrega |
+|------|---------|
+| 1 | Núcleo CRUD + validações |
+| 2 | E-mail + tokens |
+| 3 | Métricas operacionais (RF17–RF21) |
+| 4 | Automação básica (RF22–RF24) |
+| 5 | Export diário + monitoração (RF25–RF26) |
+| 6 | Async tasks + filas |
+| 7 | Autenticação / RBAC |
 
 ---
 
-## 📄 License
-
-Internal / Educational (define if open-source later).
+## 16. Licença
+Uso interno / educacional (definir formalização futura).
 
 ---
 
-## 🧾 Summary
+## 17. Resumo Técnico
+Arquitetura desacoplada, preparada para escalar: inclusão de camadas de analytics e automações sem quebrar domínio central. Requisitos RF17–RF26 adicionam visão gerencial e operacional contínua. SMTP e eventos estruturam notificações e fluxos reativos.
 
-A structured, evolvable hospital backend applying Clean Architecture for separation of concerns, enabling safe scaling of features and maintenance.
+---
+
+## 18. Análises Planejadas (AD01–AD05)
+Conjunto inicial de indicadores operacionais e assistenciais simples de implementar, visando dashboards e alertas leves:
+
+| Código | Análise | Descrição Técnica | Insight / Alerta |
+|--------|---------|-------------------|------------------|
+| AD01 | Ocupação + Tendência | Ocupação por setor (dia / semana) + média móvel 7d | Alerta se ocupação > X% por 3 dias |
+| AD02 | Consultas por Especialidade | Aggregation consultas GROUP BY especialidade + janela temporal | Queda >20% vs média 4 semanas |
+| AD03 | Faturamento Convênio | SUM(valor), ticket médio, % pendente por convênio | Convênio com maior inadimplência |
+| AD04 | Readmissões Rápidas | Reinternações < X dias (self join internação) | Top 3 diagnósticos recorrentes |
+| AD05 | Consumo & Estoque Medicamentos | Dias de cobertura = estoque / consumo médio diário | Itens com cobertura < 5 dias |
+
+### 18.1 Estratégia Técnica
+* Criar camada `analytics/` (services + queries agregadas)
+* Endpoints read-only: `GET /analytics/ocupacao`, `.../consultas-especialidade`, etc.
+* Possível materialização diária (tabela ou view) para ocupação → reduz custo em tempo real
+* Métricas calculadas em funções puras para fácil teste (mock repos)
+
+---
+
+## 19. Automações Planejadas (AUTO01–AUTO05)
+Eventos e rotinas leves para suporte operacional sem complexidade de filas inicialmente.
+
+| Código | Automação | Trigger / Regra | Ação |
+|--------|-----------|-----------------|------|
+| AUTO01 | Alerta Baixa Disponibilidade Leitos | Leitos livres setor < 10% | E-mail / webhook operacional |
+| AUTO02 | Lembrete Fatura Pendente | N dias após vencimento sem pagamento | E-mail cobrança interna |
+| AUTO03 | Nudge Exame Atrasado | Exame status 'em_andamento' > 48h | Notificação responsável |
+| AUTO04 | Flag Estadia Prolongada | Duração > mediana + X dias | Inserir em fila revisão clínica |
+| AUTO05 | Reposição Medicamento | Estoque < limite mínimo | E-mail farmácia + log evento |
+
+### 19.1 Implementação Inicial
+* Scheduler simples (ex: APScheduler ou loop thread) varrendo regras em intervalos
+* Camada `automation/` com tasks puras consumindo interfaces de repositório
+* Dispatcher central (ex: `AutomationDispatcher`) para envio (e-mail / log / webhook) abstrato
+* Escalável futuramente para fila (Redis/Celery) sem alterar casos de uso
+
+---
+
+## 20. Incremento Gradual (Plano Técnico)
+| Etapa | Incremento | Dependências |
+|-------|------------|--------------|
+| 1 | Criar diretório `analytics/` e endpoint ocupação (AD01) | Repositórios leito & internação |
+| 2 | Adicionar AD02 & AD03 | Repositórios consulta & financeiro |
+| 3 | Implementar scheduler básico (AUTO01 & AUTO05) | Métricas ocupação / estoque |
+| 4 | Introduzir automações restantes (AUTO02–AUTO04) | Financeiro, exames, internação |
+| 5 | Materializar métricas diárias e adicionar testes unitários analytics | Infra DB |
+| 6 | Abstrair dispatcher → preparar plugin fila futura | Opcional (scalability) |
+
+### 20.1 Considerações de Simplicidade
+* Sem dependência inicial de ferramentas de Big Data
+* Uso de queries SQL agregadas diretas
+* Alertas via mesma infraestrutura SMTP existente
+* Código focado em funções puras → fácil cobertura de testes
+
+---
