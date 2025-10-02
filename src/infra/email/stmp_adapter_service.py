@@ -58,5 +58,5 @@ class SMTPEmailService(SMTPServiceInterface):
             )
             self.server.send_message(self.message)
             return True
-        except Exception:
-            return False
+        except Exception as e:
+            raise SMTPException(f"Erro ao enviar email: {e}")

@@ -97,12 +97,23 @@ class PacienteRepository(PacienteRepositoryInterface):
             except Exception as e:
                 database.session.rollback()
                 raise e
-    def findByEmail(self, email:str)-> str:
+    def findByEmail(self, email:str)-> PacienteDomain:
         try:
             with BDConnectionHandler() as database:
                 paciente = database.session.query(PacienteEntity).filter_by(email=email).first()
                 if paciente:
-                    return paciente.email
+                    return PacienteDomain(
+                        id=paciente.id,
+                        nome=paciente.nome,
+                        data_nascimento=paciente.data_nascimento,
+                        cpf=paciente.cpf,
+                        sexo=paciente.sexo,
+                        telefone=paciente.telefone,
+                        alergia=paciente.alergia,
+                        contato_emergencia=paciente.contato_emergencia,
+                        endereco_id=paciente.endereco_id,
+                        convenio_id=paciente.convenio_id,
+                    )
                 return None
         except Exception as e:
             raise e

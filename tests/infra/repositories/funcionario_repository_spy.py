@@ -86,3 +86,15 @@ class FuncionarioRepositorySpy(FuncionarioRepositoryInterface):
             data_contratacao="2024-02-01"
         )
         return [funcionario1, funcionario2]
+    def findByEmail(self, email:str)-> FuncionarioDomain:
+        funcionario = FuncionarioDomain(
+               id=2,
+            nome="Funcionario 2",
+            cpf="98765432100",
+            cargo="técnico",
+            setor_id=2,
+            telefone="988888888",
+            email="sobral@gmail.com",
+            data_contratacao="2024-02-01"
+        )
+        return funcionario

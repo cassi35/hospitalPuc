@@ -24,5 +24,5 @@ class FuncionarioRepositoryInterface(ABC):
     def findAll(self) -> List[Funcionario]:
         pass
     @abstractmethod
-    def findByEmail(self,email:str) -> str:
+    def findByEmail(self,email:str) -> Funcionario:
         pass 

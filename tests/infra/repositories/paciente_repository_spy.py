@@ -89,4 +89,18 @@ class PacienteRepositorySpy(PacienteRepositoryInterface):
             convenio_id=2
         )
         return [paciente1, paciente2]
-    
+    def findByEmail(self, email:str)-> PacienteDomain:
+        paciente = PacienteDomain(
+            id=id,
+            nome="Paciente Teste",
+            data_nascimento="2000-01-01",
+            cpf="12345678900",
+            sexo="M",
+            telefone="(11) 99999-9999",
+            alergia="Nenhuma",
+            contato_emergencia="(11) 98888-8888",
+            endereco_id=1,
+            convenio_id=1,
+            email="sobral@gmail.com"
+        )
+        return paciente

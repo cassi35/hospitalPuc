@@ -18,5 +18,5 @@ class PacienteRepositoryInterface(ABC):
         def list_pacientes(self) -> List[Paciente]:
                 pass
         @abstractmethod
-        def findByEmail(self,email:str)-> str:
+        def findByEmail(self,email:str)-> Paciente:
                 pass 

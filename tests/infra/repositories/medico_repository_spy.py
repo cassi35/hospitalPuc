@@ -89,3 +89,14 @@ class MedicoRepositorySpy(MedicoRepositoryInterface):
             status="Ativo"
         )
         return medico
+    def findByEmail(self, email:str)-> MedicoDomain:
+        medico = MedicoDomain(
+            id=1,
+            nome="Dr. Teste",
+            cpf="123.456.789-00",
+            especialidade_id=1,
+            telefone="(11) 91234-5678",
+            email=email,
+            status="Ativo"
+        )
+        return medico

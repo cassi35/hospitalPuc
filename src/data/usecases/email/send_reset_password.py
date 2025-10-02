@@ -2,7 +2,7 @@ from src.domain.usecases.email.send_reset_password import ResetPasswordEmailUsec
 from src.infra.email.stmp_adapter_service import SMTPEmailService
 from src.errors.types.http_bad_request import HttpBadRequestError
 from src.errors.types.http_not_found import HttpNotFoundError
-from data.interfaces.stmp_service_interface import SMTPServiceInterface
+from src.data.interfaces.stmp_service_interface import SMTPServiceInterface
 from src.domain.usecases.email.send_reset_password import ResetPasswordEmailUsecase
 from src.data.interfaces.funcionario_interface_repository import FuncionarioRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
