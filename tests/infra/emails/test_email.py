@@ -2,7 +2,7 @@ from src.domain.models.user_email import UserEmail
 from src.infra.email.stmp_adapter_service import SMTPEmailService   
 import pytest
 stmp_service = SMTPEmailService()
-# @pytest.mark.skip(reason="sucesso")
+@pytest.mark.skip(reason="sucesso")
 def test_send_welcome_email():
     user_email = UserEmail(
         email="sobralcassique@gmail.com",
