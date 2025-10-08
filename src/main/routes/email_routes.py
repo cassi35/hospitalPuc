@@ -14,7 +14,7 @@ email_router = APIRouter()
 async def send_verification_token(request:Request):
     try:
         body = await request.json()
-        await send_token_validator(data=body)
+        send_token_validator(body)
         return await request_adapter(request,send_verification_token_composer())
     except Exception as error:
         return handle_errors(error)
@@ -22,7 +22,7 @@ async def send_verification_token(request:Request):
 async def resend_verification_token(request:Request):
     try:
         body = await request.json()
-        await send_resend_verification_token_validator(body)
+        send_resend_verification_token_validator(body)
         return await request_adapter(request,resend_verification_token_composer())
     except Exception as error:
         return handle_errors(error)
@@ -30,7 +30,7 @@ async def resend_verification_token(request:Request):
 async def send_reset_password(request:Request):
     try:
         body = await request.json()
-        await send_reset_password_validator(body)
+        send_reset_password_validator(body)
         return await request_adapter(request,send_reset_password_composer())
     except Exception as error:
         return handle_errors(error)
@@ -38,7 +38,7 @@ async def send_reset_password(request:Request):
 async def send_welcome_email(request:Request):
     try:
         body = await request.json()
-        await send_welcome_validator(body)
+        send_welcome_validator(body)
         return await request_adapter(request,send_welcome_email_composer())
     except Exception as error:
         return handle_errors(error)
