@@ -15,6 +15,7 @@ from src.main.routes.medicamento_routes import medicamento_router
 from src.main.routes.medico_routes import medico_router
 from src.main.routes.paciente_routes import paciente_router
 from src.main.routes.prescricao_routes import prescricao_router
+from src.main.routes.email_routes import email_router
 description = """ 
 this is a api for hospital puc system.
 """
@@ -47,3 +48,4 @@ app.include_router(medicamento_router,prefix=f'/{version}/medicamento',tags=["me
 app.include_router(medico_router,prefix=f'/{version}/medico',tags=["medico"])
 app.include_router(paciente_router,prefix=f'/{version}/paciente',tags=["paciente"])
 app.include_router(prescricao_router,prefix=f'/{version}/prescricao',tags=["prescricao"])
+app.include_router(email_router,prefix=f'/{version}/email',tags=["email"])
