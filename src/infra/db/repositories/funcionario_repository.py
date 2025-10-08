@@ -6,7 +6,7 @@ from src.infra.db.entities.funcionario import Funcionario as FuncionarioEntity
 
 class FuncionarioRepository(FuncionarioRepositoryInterface):
     
-    def create(self, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str) -> None:
+    def create(self, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str, usuario_id:int) -> None:
         with BDConnectionHandler() as database:
             try:
                 funcionario = FuncionarioEntity(
@@ -16,7 +16,8 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                     setor_id=setor_id,
                     telefone=telefone,
                     email=email,
-                    data_contratacao=data_contratacao
+                    data_contratacao=data_contratacao,
+                    usuario_id=usuario_id
                 )
                 database.session.add(funcionario)
                 database.session.commit()
@@ -24,7 +25,7 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                 database.session.rollback()
                 raise e
     
-    def update(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str) -> None:
+    def update(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str,usuario_id:int) -> None:
         with BDConnectionHandler() as database:
             try:
                 funcionario = database.session.query(FuncionarioEntity).filter_by(id=id).first()
@@ -36,6 +37,7 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                     funcionario.telefone = telefone
                     funcionario.email = email
                     funcionario.data_contratacao = data_contratacao
+                    funcionario.usuario_id = usuario_id
                     database.session.commit()
             except Exception as e:
                 database.session.rollback()
@@ -67,7 +69,8 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                         setor_id=funcionario.setor_id,
                         telefone=funcionario.telefone,
                         email=funcionario.email,
-                        data_contratacao=funcionario.data_contratacao
+                        data_contratacao=funcionario.data_contratacao,
+                        usuario_id=funcionario.usuario_id
                     )
                 return None
             except Exception as e:
@@ -87,7 +90,8 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                         setor_id=funcionario.setor_id,
                         telefone=funcionario.telefone,
                         email=funcionario.email,
-                        data_contratacao=funcionario.data_contratacao
+                        data_contratacao=funcionario.data_contratacao,
+                        usuario_id=funcionario.usuario_id
                     ) for funcionario in funcionarios
                 ]
             except Exception as e:
@@ -106,7 +110,8 @@ class FuncionarioRepository(FuncionarioRepositoryInterface):
                         setor_id=funcionario.setor_id,
                         telefone=funcionario.telefone,
                         email=funcionario.email,
-                        data_contratacao=funcionario.data_contratacao
+                        data_contratacao=funcionario.data_contratacao,
+                        usuario_id=funcionario.usuario_id
                     )
                     return None
             except Exception as e:

@@ -15,7 +15,8 @@ async def update_paciente_validator(body:dict) -> None:
         "email":{"type":"string","required":True,"empty":False},
         "alergia":{"type":"string","required":True,"empty":False},
         "convenio_id":{"type":"integer","required":True,"empty":False},
-        "endereco_id":{"type":"integer","required":True,"empty":False}
+        "endereco_id":{"type":"integer","required":True,"empty":False},
+          "usuario_id":{"type":"integer","required":True,"empty":False}
     })
     if not body_validator.validate(body):
         raise HttpUnprocessableEntityError(body_validator.errors)

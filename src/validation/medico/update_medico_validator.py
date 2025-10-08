@@ -9,7 +9,8 @@ async def update_medico_validator(body:dict) -> None:
        "especialidade_id":{"type":"integer","required":True,"empty":False},
         "telefone":{"type":"string","required":True,"empty":False},
         "email":{"type":"string","required":True,"empty":False},
-        "status":{"type":"string","required":True,"empty":False,"allowed":["ativo","nao ativo"]}
+        "status":{"type":"string","required":True,"empty":False,"allowed":["ativo","nao ativo"]},
+          "usuario_id":{"type":"integer","required":True,"empty":False}
     })
     if not body_validator.validate(body):
         raise HttpUnprocessableEntityError(body_validator.errors)

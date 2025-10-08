@@ -5,11 +5,11 @@ from src.domain.models.medico_model import Medico
 class MedicoRepositoryInterface(ABC):
     
     @abstractmethod
-    def create(self, nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str) -> None:
+    def create(self, nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str, usuario_id:int) -> None:
         pass
     
     @abstractmethod
-    def update(self, id: int, nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str) -> None:
+    def update(self, id: int, nome: str, cpf: str, especialidade_id: int, telefone: str, email: str, status: str, usuario_id:int) -> None:
         pass
     
     @abstractmethod

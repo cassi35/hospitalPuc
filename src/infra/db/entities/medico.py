@@ -13,3 +13,4 @@ class Medico(Base):
     status = Column(Enum('ativo','nao ativo'),nullable=True)
     
     especialidade = relationship(Especialidade)
+    usuario_id = Column(Integer,ForeignKey('Auth_user.id'),nullable=True)

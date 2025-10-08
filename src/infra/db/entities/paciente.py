@@ -18,3 +18,4 @@ class Paciente(Base):
     convenio_id = Column(Integer,ForeignKey('convenio.id'),nullable=True)
     endereco = relationship(Endereco)
     convenio = relationship(Convenio)
+    usuario_id = Column(Integer,ForeignKey('Auth_user.id'),nullable=True)

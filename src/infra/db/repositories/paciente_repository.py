@@ -5,7 +5,7 @@ from src.domain.models.paciente_model import Paciente as PacienteDomain
 from src.infra.db.entities.paciente import Paciente as PacienteEntity
 class PacienteRepository(PacienteRepositoryInterface):
     @classmethod
-    def insert_paciente(cls,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,alergia:str,contato_emergencia:str,endereco_id:int,convenio_id:int) -> None:
+    def insert_paciente(cls,nome:str,cpf:str,data_nascimento:str,sexo:str,telefone:str,alergia:str,contato_emergencia:str,endereco_id:int,convenio_id:int,usuario_id:int) -> None:
         with BDConnectionHandler() as database:
             try:
                 paciente = PacienteEntity(
@@ -17,7 +17,8 @@ class PacienteRepository(PacienteRepositoryInterface):
                     alergia=alergia,
                     contato_emergencia=contato_emergencia,
                     endereco_id=endereco_id,
-                    convenio_id=convenio_id
+                    convenio_id=convenio_id,
+                    usuario_id=usuario_id
                 )
                 database.session.add(paciente)
                 database.session.commit()
@@ -40,12 +41,13 @@ class PacienteRepository(PacienteRepositoryInterface):
                         contato_emergencia=paciente.contato_emergencia,
                         endereco_id=paciente.endereco_id,
                         convenio_id=paciente.convenio_id,
+                        usuario_id=paciente.usuario_id
                     )
                 return None
             except Exception as e:
                 database.session.rollback()
                 raise e
-    def update_paciente(cls, id: int, nome: str, cpf: str, data_nascimento: str, sexo: str, telefone: str, alergia: str, contato_emergencia: str, endereco_id: int, convenio_id: int) -> None:
+    def update_paciente(cls, id: int, nome: str, cpf: str, data_nascimento: str, sexo: str, telefone: str, alergia: str, contato_emergencia: str, endereco_id: int, convenio_id: int,usuario_id:int) -> None:
         with BDConnectionHandler() as database:
             try:
                 paciente = database.session.query(PacienteEntity).filter_by(id=id).first()
@@ -59,6 +61,7 @@ class PacienteRepository(PacienteRepositoryInterface):
                     paciente.contato_emergencia = contato_emergencia
                     paciente.endereco_id = endereco_id
                     paciente.convenio_id = convenio_id
+                    paciente.usuario_id = usuario_id
                     database.session.commit()
                 return None
             except Exception as e:
@@ -91,7 +94,8 @@ class PacienteRepository(PacienteRepositoryInterface):
                         alergia=paciente.alergia,
                         contato_emergencia=paciente.contato_emergencia,
                         endereco_id=paciente.endereco_id,
-                        convenio_id=paciente.convenio_id
+                        convenio_id=paciente.convenio_id,
+                        usuario_id=paciente.usuario_id
                     ) for paciente in pacientes
                 ]
             except Exception as e:
@@ -113,6 +117,7 @@ class PacienteRepository(PacienteRepositoryInterface):
                         contato_emergencia=paciente.contato_emergencia,
                         endereco_id=paciente.endereco_id,
                         convenio_id=paciente.convenio_id,
+                        usuario_id=paciente.usuario_id
                     )
                 return None
         except Exception as e:

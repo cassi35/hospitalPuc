@@ -12,5 +12,5 @@ class Funcionario(Base):
     telefone = Column(CHAR(9),nullable=True)
     email = Column(Text,nullable=True)
     data_contratacao = Column(Date,nullable=True)
-    
+    usuario_id = Column(Integer,ForeignKey('Auth_user.id'),nullable=True)
     setor = relationship(Setor)

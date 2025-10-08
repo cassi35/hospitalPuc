@@ -8,7 +8,8 @@ async def insert_funcionario_validator(body:dict) -> None:
         "setor_id":{"type":"integer","required":True,"empty":False},
         "telefone":{"type":"string","required":True,"empty":False},
         "email":{"type":"string","required":True,"empty":False},
-        "data_contratacao":{"type":"string","required":True,"empty":False}
+        "data_contratacao":{"type":"string","required":True,"empty":False},
+        "usuario_id":{"type":"integer","required":True,"empty":False}
     })
     if not body_validator.validate(body):
         raise HttpUnprocessableEntityError(body_validator.errors)

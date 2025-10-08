@@ -5,11 +5,11 @@ from src.domain.models.funcionario_model import Funcionario
 class FuncionarioRepositoryInterface(ABC):
     
     @abstractmethod
-    def create(self, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str) -> None:
+    def create(self, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str,usuario_id:int) -> None:
         pass
     
     @abstractmethod
-    def update(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str) -> None:
+    def update(self, id: int, nome: str, cpf: str, cargo: str, setor_id: int, telefone: str, email: str, data_contratacao: str,usuario_id:int) -> None:
         pass
     
     @abstractmethod
