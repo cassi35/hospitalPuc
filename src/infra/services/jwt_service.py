@@ -39,5 +39,21 @@ class JWTService(JWTServiceInterface):
         except jwt.PyJWTError as e:
             logging.error(f"Erro ao decodificar token: {e}")
             raise Exception("Erro ao decodificar token: " + str(e))
-
+    def is_token_valid(self, token:str)-> bool:
+        try:
+            jwt.decode(
+                jwt=token,
+                key=self.secret,
+                algorithms=[self.algorithm]
+            )
+            return True
+        except jwt.ExpiredSignatureError:
+            logging.error("Token expirado")
+            return False
+        except jwt.InvalidTokenError:
+            logging.error("Token inválido")
+            return False
+        except jwt.PyJWTError as e:
+            logging.error(f"Erro ao decodificar token: {e}")
+            return False
 

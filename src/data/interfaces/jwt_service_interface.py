@@ -6,3 +6,5 @@ class JWTServiceInterface(ABC):
     def create_access_token(self,user_data:dict,expiry:timedelta = None ,refresh_token:bool = False)->str:pass
     @abstractmethod
     def decode_token(self,token:str)-> Optional[dict]:pass 
+    @abstractmethod
+    def is_token_valid(self,token:str)-> bool:pass
