@@ -1,5 +1,5 @@
 from src.infra.db.settings.base import Base
-from sqlalchemy import Column, Integer, String, Enum, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Enum, TIMESTAMP,Boolean
 
 class AuthUser(Base):
     __tablename__ = 'Auth_user' 
@@ -11,3 +11,4 @@ class AuthUser(Base):
     role = Column(Enum('Paciente', 'Medico', 'funcionario'),nullable=False)
     createdAt = Column(TIMESTAMP,nullable=False,server_default='CURRENT_TIMESTAMP')
     updatedAt = Column(TIMESTAMP,nullable=False,server_default='CURRENT_TIMESTAMP', onupdate='CURRENT_TIMESTAMP')
+    is_verified = Column(Boolean,default=False,nullable=False)
