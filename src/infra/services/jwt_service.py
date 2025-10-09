@@ -1,5 +1,5 @@
 from src.data.interfaces.jwt_service_interface import JWTServiceInterface
-from datetime import timedelta,datetime
+from datetime import timedelta,datetime,timezone
 from typing import Optional
 import jwt
 import uuid
@@ -12,7 +12,8 @@ class JWTService(JWTServiceInterface):
     def create_access_token(self, user_data: dict, expiry: Optional[timedelta] = None,refresh_token:bool = False) -> str:
         payload = {}
         payload['user_data'] = user_data
-        payload['exp'] = datetime.now()+expiry if expiry is not None else timedelta( minutes=15)
+        expire = datetime.now(timezone.utc) + (expiry if expiry is not None else timedelta(seconds=3600))
+        payload['exp'] = int(expire.timestamp())
         payload['jti'] = str(uuid.uuid4())
         payload['refresh'] = refresh_token
         token = jwt.encode(
@@ -38,3 +39,5 @@ class JWTService(JWTServiceInterface):
         except jwt.PyJWTError as e:
             logging.error(f"Erro ao decodificar token: {e}")
             raise Exception("Erro ao decodificar token: " + str(e))
+
+
