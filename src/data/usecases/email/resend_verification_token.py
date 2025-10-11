@@ -18,8 +18,6 @@ class ResendVerificationTokenUsecase(SendVerificationTokenUsecaseInterface):
     def __validate_token(self,token:int)-> None:
         if not token:
             raise HttpBadRequestError("Token é obrigatório")
-        if len(str(token)) != 4:
-            raise HttpBadRequestError("Token inválido")
     def __execute(self,token:int,email:str)->None:
         send_email = self.email_service.resend_verification_token(email=email,token=token)
         if not send_email:

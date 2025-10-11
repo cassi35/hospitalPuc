@@ -22,8 +22,6 @@ class ResetPasswordEmailUsecase(ResetPasswordEmailUsecaseInterface):
     def __validate_token(self,token:int)-> None:
         if not token:
             raise HttpBadRequestError("Token é obrigatório")
-        if len(str(token)) != 4:
-            raise HttpBadRequestError("Token inválido")
     def __validate_email(self,email:str)-> None:
         if not email:
             raise HttpNotFoundError("Email é obrigatório")

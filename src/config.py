@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     PASSWORD_REDIS:str
     JWT_SECRET:str
     JWT_ALGORITHM:str
+    REDIS_BLACKLIST_PREFIX:str
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore"
