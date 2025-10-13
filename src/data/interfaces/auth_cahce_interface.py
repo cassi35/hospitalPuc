@@ -2,7 +2,7 @@
 
 # Interface mais clara para JWT + Cache
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional,Dict,Any
 
 class AuthCacheInterface(ABC):
     # Para controle de tokens (não sessão tradicional)
@@ -18,12 +18,12 @@ class AuthCacheInterface(ABC):
     
     # Para tokens temporários (reset senha, verificação email)
     @abstractmethod
-    def store_temp_token(self, key: str, token: str, ttl: int = 900) -> bool:
+    def store_temp_token(self, key: str, value: Dict[str, Any], ttl: int = 900) -> bool:
         """Armazena token temporário (15 min)"""
         pass
     
     @abstractmethod
-    def get_temp_token(self, key: str) -> Optional[str]:
+    def get_temp_token(self, key: str) -> Optional[Dict[str, Any]]:
         """Recupera token temporário"""
         pass
     

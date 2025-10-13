@@ -2,8 +2,8 @@ from src.data.interfaces.auth_cahce_interface import AuthCacheInterface
 from src.config import Config
 from src.infra.cache.connection import CacheConnectionHandler
 import logging
-from typing import Optional
-
+import json
+from typing import Optional,Dict,Any
 class AuthCacheService(AuthCacheInterface):
     def __init__(self):
         self.redis = CacheConnectionHandler().create_redis_connection()
@@ -32,24 +32,25 @@ class AuthCacheService(AuthCacheInterface):
             logging.error(f"Erro ao verificar token na blacklist: {e}")
             return False
 
-    def store_temp_token(self, key: str, token: str, ttl: int = 900) -> bool:
+    def store_temp_token(self, key: str, value: Dict[str, Any], ttl: int = 900) -> bool:
         """
         Armazena um token temporário (ex: para reset de senha) no Redis.
         """
         try:
-            self.redis.set(key, token, ex=ttl)
+            json_string_dict = json.dumps(value)
+            self.redis.set(key, json_string_dict, ex=ttl)
             return True
         except Exception as e:
             logging.error(f"Erro ao armazenar token temporário: {e}")
             return False
 
-    def get_temp_token(self, key: str) -> Optional[str]:
+    def get_temp_token(self, key: str) -> Optional[Dict[str, Any]]:
         """
         Recupera um token temporário do Redis.
         """
         value = self.redis.get(key)
         if value is not None:
-            return value 
+            return json.loads(value)
         return None
 
     def delete_temp_token(self, key: str) -> bool:
