@@ -27,7 +27,7 @@ class AuthCacheService(AuthCacheInterface):
         """
         try:
             key = f"{self.blacklist_prefix}{token}"
-            return self.redis.exists(key) == 1
+            return self.redis.exists(key) != '0'
         except Exception as e:
             logging.error(f"Erro ao verificar token na blacklist: {e}")
             return False
@@ -47,21 +47,24 @@ class AuthCacheService(AuthCacheInterface):
         """
         Recupera um token temporário do Redis.
         """
-        try:
-            value = self.redis.get(key)
-            if value is not None:
-                return value.decode() if isinstance(value, bytes) else value
-            return None
-        except Exception as e:
-            logging.error(f"Erro ao recuperar token temporário: {e}")
-            return None
+        value = self.redis.get(key)
+        if value is not None:
+            return value 
+        return None
 
     def delete_temp_token(self, key: str) -> bool:
         """
         Remove um token temporário do Redis.
         """
         try:
-            return self.redis.delete(key) == 1
+            token = self.get_temp_token(key)
+            if token == None:
+                logging.warning(f"Token com chave {key} não encontrado para deleção.")
+                return False
+            delete = self.redis.delete(key)
+            if delete == 1:
+                return True
+            return False
         except Exception as e:
             logging.error(f"Erro ao deletar token temporário: {e}")
             return False
