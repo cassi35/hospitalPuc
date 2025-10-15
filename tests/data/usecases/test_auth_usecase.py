@@ -18,7 +18,8 @@ password_service = PasswordService()
 url_safe_token_service = URLSafeTokenService()
 email_service = SMTPEmailService()
 auth_repository = AuthRepository()
-# @pytest.mark.skip(reason="teste realizado com sucesso")
+@pytest.mark.skip(reason="teste realizado com sucesso")
+
 def test_signup_usecase():
     signup_usecase = SignupUseCaseImpl(
           auth_cache=auth_cache_service,
@@ -41,8 +42,8 @@ def test_signup_usecase():
     response = signup_usecase.signup(
         auth=auth
     )
-    print(response)
-@pytest.mark.skip(reason="teste realizado com sucesso")
+#     print(response)
+# @pytest.mark.skip(reason="teste realizado com sucesso")
 def test_verify_email_usecase():
     verify_email_usecase = VerifyEmailUseCaseImpl(
         auth_cache=auth_cache_service,
@@ -52,7 +53,7 @@ def test_verify_email_usecase():
         email_service=email_service
     )
     email = "sobralcassique@gmail.com"
-    token =  ".eJyrVkrNTczMUbJSKs5PKkrMSU4sLs4sLE11SAcJ6yXn5yrpKBWn5mUkApUYGhmbmJpZmAOFivJzUoEiAYnJmal5JalAkbz8XJAI2IDEvHylWgBzex2z.aO7VXg.k8eJk3kHNVI1ir330eZRdtLsmRU"
+    token =  ".eJyrVkrNTczMUbJSKs5PKkrMSU4sLs4sLE11SAcJ6yXn5yrpKBWn5mUkApUYGhmbmJpZmAOFivJzUoEiAYnJmal5JalAkbz8XJAI2IDEvHylWgBzex2z.aO-o9Q.ODJk5Vb63lqDcuKgq82Hk1wo8UM"
     response = verify_email_usecase.verify(
         email=email,
         token=token,

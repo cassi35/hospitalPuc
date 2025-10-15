@@ -164,3 +164,5 @@ Persistência local
 Comunicação com APIs
 
 📦 Usado por: ferramentas internas, utilitários desktop.
+------------------
+escalabilidade 
