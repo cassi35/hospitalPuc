@@ -9,4 +9,4 @@ class AuthModel:
         self.createAt = createAt
         self.updateAt = updateAt
         self.is_verified = is_verified
-        nome = nome
+        self.nome = nome

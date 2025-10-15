@@ -7,12 +7,15 @@ from src.domain.usecases.email.send_reset_password import ResetPasswordEmailUsec
 from src.data.interfaces.funcionario_interface_repository import FuncionarioRepositoryInterface
 from src.data.interfaces.medico_interface_repository import MedicoRepositoryInterface
 from src.data.interfaces.paciente_interface_repository import PacienteRepositoryInterface
+from src.data.interfaces.auth_interface import AuthRepositoryInterface
+from src.domain.models.user_email import UserEmail
 class ResetPasswordEmailUsecase(ResetPasswordEmailUsecaseInterface):
-    def __init__(self,email_service:SMTPServiceInterface,medico_repository:MedicoRepositoryInterface,funcionario_repository:FuncionarioRepositoryInterface,paciente_repository:PacienteRepositoryInterface):
+    def __init__(self,email_service:SMTPServiceInterface,medico_repository:MedicoRepositoryInterface,funcionario_repository:FuncionarioRepositoryInterface,paciente_repository:PacienteRepositoryInterface,auth_repository:AuthRepositoryInterface):
         self.email_service = email_service
         self.medico_repository = medico_repository
         self.funcionario_repository = funcionario_repository
         self.paciente_repository = paciente_repository
+        self.auth_repository = auth_repository
     def send_email(self, email: str,token:int) -> dict:
         self.__validate_email(email=email)
         self.__validate_token(token=token)
@@ -31,7 +34,8 @@ class ResetPasswordEmailUsecase(ResetPasswordEmailUsecaseInterface):
         medico =self.medico_repository.findByEmail(email=email)
         funcionario =self.funcionario_repository.findByEmail(email=email)
         paciente =self.paciente_repository.findByEmail(email=email)
-        if not medico and not funcionario and not paciente:
+        auth = self.auth_repository.get_user_by_email(email=email)
+        if not medico and not funcionario and not paciente and not auth:
             raise HttpNotFoundError("Email não cadastrado")
     def __execute(self,email:str,token:int) ->None:
         send_email = self.email_service.send_reset_password_email(email=email,token=token)

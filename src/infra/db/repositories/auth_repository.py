@@ -63,15 +63,23 @@ class AuthRepository(AuthRepositoryInterface):
         with BDConnectionHandler() as database:
             try:
                 user = database.session.query(AuthUserEntity).filter_by(id=user_id).first()
-                if user:
+                if not user:
+                    raise Exception("Usuário não encontrado")
+                
+                # ✅ Atualiza apenas os campos fornecidos
+                if 'email' in update_data:
                     user.email = update_data['email']
+                if 'nome' in update_data:
                     user.nome = update_data['nome']
+                if 'senha' in update_data:
                     user.senha = update_data['senha']
+                if 'role' in update_data:
                     user.role = update_data['role']
-                    user.updatedAt = datetime.now()
+                if 'is_verified' in update_data:
                     user.is_verified = update_data['is_verified']
-                    database.session.commit()
-                return None
+                
+                user.updatedAt = datetime.now()
+                database.session.commit()
             except Exception as e:
                 database.session.rollback()
                 raise e

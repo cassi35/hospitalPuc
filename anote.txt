@@ -14,3 +14,153 @@ pip install pytest
   O que você faz aqui é interagir com um serviço externo (SMTP).
 
   a validacao do models tem que 
+------------------------
+tipos de boiler plate 
+🧩 1. Boilerplate por Tipo de Aplicação
+🔹 a) Backend API Boilerplate
+
+Usado para construir APIs (REST, GraphQL, gRPC, etc.)
+
+Contém:
+
+Estrutura de camadas (ex: Clean Architecture)
+
+Auth (JWT, OAuth2)
+
+ORM (SQLAlchemy, Prisma, TypeORM, etc.)
+
+Cache (Redis)
+
+Logs, middlewares, validação de entrada
+
+Configs (.env, CORS, rate-limit)
+
+Exemplo real:
+
+python-clean-api-template
+
+nestjs-clean-arch-boilerplate
+
+📦 Usado por: microservices, gateways, BFFs, SaaS backends.
+
+🔹 b) Frontend Boilerplate
+
+Base para SPAs ou aplicações web.
+
+Contém:
+
+Framework (React, Vue, Angular)
+
+Estrutura de componentes e rotas
+
+Theming / design system (Tailwind, MUI, etc.)
+
+Integração com API
+
+Autenticação e controle de sessão
+
+State management (Redux, Zustand, Pinia…)
+
+📦 Usado por: dashboards, painéis administrativos, aplicações web ricas.
+
+🔹 c) Fullstack Boilerplate
+
+Combina backend + frontend num único monorepo.
+
+Contém:
+
+API (NestJS, FastAPI, Express, etc.)
+
+Front (Next.js, Vue, etc.)
+
+Auth integrado
+
+Docker + CI/CD prontos
+
+Comunicação entre camadas
+
+📦 Usado por: startups e SaaS que querem subir rápido.
+
+🔹 d) CLI / Ferramenta interna Boilerplate
+
+Feito pra criar ferramentas de linha de comando (scripts, automações internas).
+
+Contém:
+
+Parsing de argumentos (argparse, click, etc.)
+
+Logging e config padrão
+
+Estrutura de comandos e subcomandos
+
+Testes unitários
+
+📦 Usado por: DevOps, ferramentas internas, automação de pipelines.
+
+🔹 e) Data / ETL Boilerplate
+
+Base para pipelines de dados e automação de processamento.
+
+Contém:
+
+Estrutura de jobs ETL
+
+Configs de conexão (S3, bancos, APIs)
+
+Logging e retries
+
+Scheduler (Airflow, Celery, Prefect)
+
+📦 Usado por: times de data engineering e analytics.
+
+🔹 f) Microservice Boilerplate
+
+Voltado a microsserviços autônomos.
+
+Contém:
+
+Comunicação entre serviços (gRPC, RabbitMQ, Kafka)
+
+Monitoramento e métricas (Prometheus)
+
+Health check endpoints
+
+Circuit breaker / retry
+
+Deploy fácil com Docker/Kubernetes
+
+📦 Usado por: sistemas distribuídos e escaláveis.
+
+🔹 g) Serverless Boilerplate
+
+Para projetos com AWS Lambda, Google Cloud Functions, etc.
+
+Contém:
+
+Handler padrão (com logs e erros tratados)
+
+Deploy automático (Serverless Framework, AWS SAM)
+
+Configuração de eventos
+
+Variáveis de ambiente
+
+Testes locais simulando Lambda
+
+📦 Usado por: APIs pequenas, automações, backends event-driven.
+
+🔹 h) Desktop / App Boilerplate
+
+Para apps locais (Electron, PyQt, etc.)
+
+Contém:
+
+Setup do app (menu, janelas)
+
+Config de build/distribuição
+
+Persistência local
+
+Comunicação com APIs
+
+📦 Usado por: ferramentas internas, utilitários desktop.

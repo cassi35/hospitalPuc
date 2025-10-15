@@ -9,9 +9,9 @@ class JWTService(JWTServiceInterface):
     def __init__(self):
         self.secret = Config.JWT_SECRET
         self.algorithm = Config.JWT_ALGORITHM
-    def create_access_token(self, user_data: dict, expiry: Optional[timedelta] = None,refresh_token:bool = False) -> str:
+    def create_access_token(self, user_id:int, expiry: Optional[timedelta] = None,refresh_token:bool = False) -> str:
         payload = {}
-        payload['user_data'] = user_data
+        payload['user_id'] = user_id
         expire = datetime.now(timezone.utc) + (expiry if expiry is not None else timedelta(seconds=3600))
         payload['exp'] = int(expire.timestamp())
         payload['jti'] = str(uuid.uuid4())

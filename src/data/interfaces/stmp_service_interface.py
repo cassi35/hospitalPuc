@@ -5,7 +5,7 @@ class SMTPServiceInterface(ABC):
     def send_token(self, token:str, email:str) -> bool:
         pass
     @abstractmethod
-    def send_welcome_email(self, user:UserEmail)-> bool:
+    def send_welcome_email(self, email:UserEmail)-> bool:
         pass
     @abstractmethod
     def send_reset_password_email(self, token:str, email:str) -> bool:
