@@ -6,14 +6,11 @@ from src.infra.db.entities.medico import Medico
 from src.infra.db.entities.medicamento import Medicamento
 class Prescricao(Base):
     __tablename__ = 'prescricao'
-    id = Column(Integer,primary_key=True,autoincrement=True)
+    id = Column(Integer,primary_key=True,autoincrement=True,nullable=False)
     paciente_id = Column(Integer,ForeignKey('Paciente.id'),nullable=True)
     medico_id = Column(Integer,ForeignKey('Medico.id'),nullable=True)
-    data_prescricao = Column(Date,nullable=True)
-    medicamento_id = Column(Integer,ForeignKey('medicamento.id'),nullable=True)
-    dosagem = Column(Integer,nullable=True)
-    frequencia = Column(Integer,nullable=True)
+    data_prescricao = Column(Date,nullable=False)
+    medicamento_id = Column(Integer,ForeignKey('medicamento.id'),nullable=False)
+    dosagem = Column(Integer,nullable=False)
+    frequencia = Column(Integer,nullable=False)
     
-    paciente = relationship(Paciente)
-    medico = relationship(Medico)
-    medicamento = relationship(Medicamento)

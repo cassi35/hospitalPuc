@@ -4,13 +4,13 @@ from sqlalchemy.orm import relationship
 from src.infra.db.entities.setor import Setor
 class Funcionario(Base):
     __tablename__ = 'funcionario'
-    id = Column(Integer,primary_key=True,autoincrement=True)
-    nome = Column(Text,nullable=True)
-    cpf = Column(CHAR(11),nullable=True)
-    cargo = Column(Enum('enfermeiro','técnico','recepcionista'),nullable=True)
+    id = Column(Integer,primary_key=True,autoincrement=True,nullable=False)
+    nome = Column(Text,nullable=False)
+    cpf = Column(CHAR(11),nullable=False,unique=True)
+    cargo = Column(Enum('enfermeiro','técnico','recepcionista'),nullable=False)
     setor_id = Column(Integer,ForeignKey('setor.id'),nullable=True)
-    telefone = Column(CHAR(9),nullable=True)
-    email = Column(Text,nullable=True)
-    data_contratacao = Column(Date,nullable=True)
+    telefone = Column(CHAR(9),nullable=False)
+    email = Column(String(255),nullable=False,unique=True)
+    data_contratacao = Column(Date,nullable=False)
     usuario_id = Column(Integer,ForeignKey('Auth_user.id'),nullable=True)
-    setor = relationship(Setor)
+    

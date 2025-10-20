@@ -5,9 +5,8 @@ from src.infra.db.entities.setor import Setor
 class Leito(Base):
     __tablename__ = 'leito'
     id = Column(Integer,primary_key=True,autoincrement=True)
-    numero_leito = Column(String(30),nullable=True)
+    numero_leito = Column(String(30),nullable=False)
     setor_id = Column(Integer,ForeignKey('setor.id'),nullable=True)
-    tipo = Column(Enum('Enfermaria','Apartamento','UTI Adulto','UTI Neonatal','UTI Pediátrica'),nullable=True)
-    status = Column(Enum('disponivel','ocupado'),nullable=True)
+    tipo = Column(Enum('Enfermaria','Apartamento','UTI Adulto','UTI Neonatal','UTI Pediátrica'),nullable=False)
+    status = Column(Enum('disponivel','ocupado'),nullable=False)
     
-    setor = relationship(Setor)

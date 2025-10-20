@@ -10,9 +10,6 @@ class Internacao(Base):
     paciente_id = Column(Integer,ForeignKey('Paciente.id'),nullable=True)
     medico_id = Column(Integer,ForeignKey('Medico.id'),nullable=True)
     leito_id = Column(Integer,ForeignKey('leito.id'),nullable=True)
-    data_entrada = Column(Date,nullable=True)
-    status = Column(Enum('em andamento','alta','obito'),nullable=True)
+    data_entrada = Column(Date,nullable=False)
+    status = Column(Enum('em andamento','alta','obito'),nullable=False)
     
-    paciente = relationship(Paciente)
-    medico = relationship(Medico)
-    leito = relationship(Leito)

@@ -3,5 +3,5 @@ from sqlalchemy import Column,String,Integer,Text
 class Especialidade(Base):
     __tablename__ = 'especialidade'
     id = Column(Integer,primary_key=True,autoincrement=True)
-    nome = Column(String(50),nullable=True)
-    descricao = Column(Text, nullable=True)
+    nome = Column(String(50),nullable=False)
+    descricao = Column(Text, nullable=False)

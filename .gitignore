@@ -6,3 +6,4 @@ src/.env
 Dockerfile
 .dockerignore
 dockerAnote.txt
+init

@@ -6,14 +6,11 @@ from src.infra.db.entities.medico import Medico
 from src.infra.db.entities.especialidade import Especialidade
 class Consulta(Base):
     __tablename__ = 'Consulta'
-    id = Column(Integer,primary_key=True,autoincrement=True)
-    data_hora = Column(Date,nullable=True)
+    id = Column(Integer,primary_key=True,autoincrement=True,nullable=False)
+    data_hora = Column(Date,nullable=False)
     paciente_id = Column(Integer,ForeignKey('Paciente.id'),nullable=True)
     medico_id = Column(Integer,ForeignKey('Medico.id'),nullable=True)
     especialidade_id = Column(Integer,ForeignKey('especialidade.id'),nullable=True)
-    status = Column(Enum('ativo','nao ativo'),nullable=True)
-    observacoes = Column(String(100),nullable=True)
+    status = Column(Enum('ativo','nao ativo'),nullable=False)
+    observacoes = Column(String(100),nullable=False)
     
-    paciente = relationship(Paciente)
-    medico = relationship(Medico)
-    especialidade = relationship(Especialidade)
