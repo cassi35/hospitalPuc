@@ -2,4 +2,7 @@
 src/.env
 *.env.local
 *.env.backup
-
+# Ignorar arquivos de configuração do Docker
+Dockerfile
+.dockerignore
+dockerAnote.txt
