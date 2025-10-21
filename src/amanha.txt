@@ -1,0 +1,5 @@
+deletar o container e colocar um novo comando sem a porta 3007:3006
+docker run --name hospitalDB -e MYSQL_ROOT_PASSWORD=root --network dbnet -v mysqlVolume:/var/lib/mysql -d mysql:latest
+criar conexao no workbench 
+criar database endereco 
+fazer teste unitario endereco 

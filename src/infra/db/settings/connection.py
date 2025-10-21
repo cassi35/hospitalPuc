@@ -1,23 +1,15 @@
 from sqlalchemy import create_engine 
-import os 
-from dotenv import load_dotenv
+from src.config import Config
 from sqlalchemy.orm import sessionmaker
 class BDConnectionHandler:
     def __init__(self):
-        # Carrega as variáveis do arquivo .env
-        load_dotenv()
-        
-        # Obtém as variáveis de ambiente
-        db_user = os.getenv('DB_USER')
-        db_password = os.getenv('DB_PASSWORD')
-        db_host = os.getenv('DB_HOST')
-        db_port = os.getenv('DB_PORT')
-        db_name = os.getenv('DB_NAME')
-        
-        self._connection_string = "{}://{}:{}@{}:{}/{}".format(
-            "mysql+pymysql", db_user, db_password, db_host, db_port, db_name
-        )
-        
+        db_user = Config.DB_USER
+        db_password = Config.DB_PASSWORD
+        db_host = Config.DB_HOST
+        db_port = Config.DB_PORT
+        db_name = Config.DB_NAME
+
+        self._connection_string ="mysql+pymysql://root:root@hospitalDB/HospitalSaoLucas"
         # Inicializa o engine
         self.__engine = self.__create_database_engine()
     
