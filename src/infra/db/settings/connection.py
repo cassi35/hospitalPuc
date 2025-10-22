@@ -8,8 +8,7 @@ class BDConnectionHandler:
         db_host = Config.DB_HOST
         db_port = Config.DB_PORT
         db_name = Config.DB_NAME
-
-        self._connection_string ="mysql+pymysql://root:root@hospitalDB/HospitalSaoLucas"
+        self._connection_string = f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}"
         # Inicializa o engine
         self.__engine = self.__create_database_engine()
     
@@ -19,7 +18,7 @@ class BDConnectionHandler:
     
     def create_tables(self):
         from infra.db.settings.base import Base
-        Base.metadata.create_all(self.__engine)
+        Base.metadata.create_all(self.__engine)   
     
     def get_engine(self):
         return self.__engine
