@@ -1,0 +1,15 @@
+Domain
+Diagrama de classes (UML)
+Entidades de domínio e suas relações (ex: Paciente, Medico, Consulta, Prescricao). É o verdadeiro diagrama do domínio.
+Data
+Diagrama de classes + sequência
+Classes de casos de uso (InsertConsultaUseCase, etc.) e interfaces de repositório (ConsultaRepositoryInterface). Mostra como casos de uso chamam interfaces.
+Infra
+Diagrama de classes (implementações)
+Repositórios concretos (ConsultaRepositoryImpl, etc.) e sua relação com as interfaces da camada Data. Pode incluir DAOs ou mapeamentos ORM.
+Presentation
+Diagrama de sequência ou componentes
+Controllers, DTOs e adaptadores. Mostra o fluxo de requisição/resposta.
+Main
+Diagrama de componentes ou implantação
+Como as rotas, factories e dependências são montadas. Mostra a “colagem” das partes.
